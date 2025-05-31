@@ -12,7 +12,7 @@ type AppProps = { router: MainRouter }
 const App: React.FC<AppProps> = ({ router }) => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ThemeProvider defaultTheme='light'>
+			<ThemeProvider>
 				<ThemeConfigProvider>
 					<RouterProvider
 						router={router}

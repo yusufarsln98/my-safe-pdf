@@ -8,7 +8,6 @@ const { Title, Paragraph } = Typography
 const NotFoundContainer = styled.div`
 	display: flex;
 	align-items: center;
-	min-height: 100vh;
 	padding: 48px 16px;
 `
 

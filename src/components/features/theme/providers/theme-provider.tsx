@@ -1,11 +1,5 @@
 import { ConfigProvider } from 'antd'
-import React, {
-	createContext,
-	useState,
-	useEffect,
-	ReactNode,
-	useMemo,
-} from 'react'
+import React, { createContext, useState, ReactNode, useMemo } from 'react'
 import { themes } from '../tokens'
 import { ThemeName, ThemeContextType } from '../utils/types'
 
@@ -21,7 +15,7 @@ interface ThemeProviderProps {
 	defaultTheme?: ThemeName
 }
 
-const THEME_KEY = 'ant-theme-preference'
+const THEME_KEY = 'ant-theme-preference' // do not change this key
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 	children,
@@ -32,14 +26,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 		return (savedTheme as ThemeName) || defaultTheme
 	})
 
-	useEffect(() => {
-		localStorage.setItem(THEME_KEY, currentTheme)
-		document.documentElement.setAttribute('data-theme', currentTheme)
-	}, [currentTheme])
-
 	const setTheme = (theme: ThemeName) => {
 		if (themes[theme]) {
 			setCurrentTheme(theme)
+			localStorage.setItem(THEME_KEY, theme)
 		}
 	}
 

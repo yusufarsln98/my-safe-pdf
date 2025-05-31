@@ -1,24 +1,93 @@
-// components/AppHeader.tsx
-import { Layout } from 'antd'
+import { Link } from '@tanstack/react-router'
+import { Layout, Menu, Flex, Space } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
-import { LanguageSwitcher } from '@/components/features/language-switcher'
-import { ThemeSwitcher } from '@/components/features/theme'
+import logoDark from '@/assets/logo-dark.png'
+import logo from '@/assets/logo.png'
+import { LanguageSwitcher } from '@/components/features/language-switcher/language-switcher'
+import { ThemeSwitcher, useTheme } from '@/components/features/theme'
 
 const { Header } = Layout
 
 const StyledHeader = styled(Header)`
 	background-color: ${(props) => props.theme.colorBgContainer};
+	box-shadow: ${(props) => props.theme.boxShadowTertiary};
+	display: flex;
+	align-items: center;
+	padding: 0 32px;
+
+	.active-link {
+		color: ${(props) => props.theme.colorPrimary} !important;
+	}
 `
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-interface AppHeaderProps {}
+// Define menu items configuration
+const MENU_ITEMS: {
+	key: string
+	path: string // TODO: make this type safe
+	label: string
+}[] = [
+	{
+		key: 'home',
+		path: '/',
+		label: 'Home',
+	},
+	{
+		key: 'merge',
+		path: '/merge/',
+		label: 'Merge',
+	},
+]
 
-export const AppHeader: React.FC<AppHeaderProps> = () => {
+export const AppHeader: React.FC = () => {
+	const { currentTheme } = useTheme()
+
+	// Convert menu items to Ant Design format with active state
+	const menuItems = MENU_ITEMS.map((item) => ({
+		key: item.key,
+		label: (
+			<Link
+				to={item.path}
+				activeProps={{ className: 'active-link' }}
+				activeOptions={{ exact: true }}
+			>
+				{item.label}
+			</Link>
+		),
+	}))
+
 	return (
 		<StyledHeader>
-			<ThemeSwitcher />
-			<LanguageSwitcher />
+			<Flex
+				align='center'
+				style={{ flex: 1, minWidth: 0 }}
+			>
+				<Link to='/'>
+					<img
+						src={currentTheme === 'dark' ? logoDark : logo}
+						alt='Logo'
+						style={{ height: 32, marginRight: 16, display: 'block' }}
+					/>
+				</Link>
+				<Menu
+					mode='horizontal'
+					items={menuItems}
+					selectable={false}
+					style={{
+						flex: 1,
+						minWidth: 0,
+						background: 'transparent',
+						borderBottom: 'none',
+					}}
+				/>
+			</Flex>
+			<Space
+				align='center'
+				size={8}
+			>
+				<ThemeSwitcher />
+				<LanguageSwitcher />
+			</Space>
 		</StyledHeader>
 	)
 }

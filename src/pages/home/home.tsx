@@ -1,5 +1,6 @@
-import { Typography } from 'antd'
+import { Flex, Typography } from 'antd'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const { Title, Paragraph } = Typography
 
@@ -7,12 +8,25 @@ const { Title, Paragraph } = Typography
 interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = () => {
+	const { t } = useTranslation()
+
 	return (
-		<div>
-			<Title level={2}>Dashboard</Title>
-			<Paragraph type='secondary'>
-				Welcome to your dashboard. Here's an overview of your activity.
-			</Paragraph>
-		</div>
+		<Flex vertical>
+			<Flex
+				vertical
+				align='center'
+			>
+				<Title level={1}>{t('home.title')}</Title>
+				<Paragraph
+					type='secondary'
+					style={{
+						fontSize: 18,
+						textAlign: 'center',
+					}}
+				>
+					{t('home.description')}
+				</Paragraph>
+			</Flex>
+		</Flex>
 	)
 }

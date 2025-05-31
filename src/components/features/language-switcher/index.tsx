@@ -1,3 +1,2 @@
-import { LanguageSwitcher } from './language-switcher'
-
-export { LanguageSwitcher }
+// eslint-disable-next-line react-refresh/only-export-components
+export * from './language-switcher'

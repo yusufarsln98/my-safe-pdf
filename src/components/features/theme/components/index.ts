@@ -1,3 +1,1 @@
-import ThemeSwitcher from './ThemeSwitcher'
-
-export { ThemeSwitcher }
+export * from './theme-switcher'

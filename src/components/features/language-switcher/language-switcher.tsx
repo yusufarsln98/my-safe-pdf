@@ -1,31 +1,67 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
+import { Dropdown, Button, Flex } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { ItemType } from 'antd/es/menu/interface'
+import { ActiveDot } from '@/components/ui/active-dot'
 
-const StyledButton = styled.button`
-	padding: 0.5rem 1rem;
-	background-color: #3b82f6;
-	color: white;
-	border-radius: 0.5rem;
-	box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-	transition: background-color 0.2s;
-
-	&:hover {
-		background-color: #2563eb;
+const LanguageIconButton = styled(Button)`
+	&:hover,
+	&:focus {
+		background: ${({ theme }) => theme.colorBgElevated};
 	}
 `
+
+const LANGUAGE_OPTIONS = [
+	{ value: 'en', label: 'English', flag: '🇺🇸' },
+	{ value: 'tr', label: 'Türkçe', flag: '🇹🇷' },
+]
 
 export const LanguageSwitcher: React.FC = () => {
 	const { i18n } = useTranslation()
 
-	const toggleLanguage = () => {
-		const newLang = i18n.language === 'en' ? 'tr' : 'en'
-		i18n.changeLanguage(newLang)
-	}
+	const items: ItemType[] = LANGUAGE_OPTIONS.map((opt) => ({
+		key: opt.value,
+		label: (
+			<Flex
+				align='center'
+				gap={8}
+				style={{
+					minWidth: 120,
+				}}
+			>
+				<span style={{ fontSize: '16px' }}>{opt.flag}</span>
+				{opt.label}
+				{i18n.language === opt.value && <ActiveDot />}
+			</Flex>
+		),
+	}))
+
+	const currentOption = LANGUAGE_OPTIONS.find(
+		(opt) => opt.value === i18n.language
+	)
 
 	return (
-		<StyledButton onClick={toggleLanguage}>
-			{i18n.language === 'en' ? 'Değiştir' : 'Switch'}
-		</StyledButton>
+		<Dropdown
+			menu={{
+				items: items,
+				onClick: (info) => i18n.changeLanguage(info.key),
+			}}
+			trigger={['click']}
+			placement='bottomRight'
+		>
+			<LanguageIconButton
+				aria-label='Switch language'
+				type='text'
+			>
+				<Flex
+					align='center'
+					gap={4}
+				>
+					<span style={{ fontSize: '14px' }}>{currentOption?.flag}</span>
+					<span>{currentOption?.label}</span>
+				</Flex>
+			</LanguageIconButton>
+		</Dropdown>
 	)
 }
