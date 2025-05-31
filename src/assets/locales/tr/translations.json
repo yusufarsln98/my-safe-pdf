@@ -1,0 +1,19 @@
+{
+	"home": {
+		"greeting": "Merhaba, Dünya!"
+	},
+	"c1": {
+		"options": {
+			"o1": "Opsiyon 1",
+			"o2": "Opsiyon 2",
+			"o3": "Opsiyon 3"
+		},
+		"columns": {
+			"c1": "Sütun 1",
+			"c2": "Sütun 2",
+			"c3": "Sütun 3",
+			"c4": "Sütun 4",
+			"c5": "Sütun 5"
+		}
+	}
+}

@@ -1,0 +1,54 @@
+# Welcome to My Storybook
+
+Welcome to the Storybook for our project! Here, you'll find a collection of components and their variations.
+
+## Getting Started
+
+- Browse the components in the sidebar.
+- Click on a component to see its variations and usage.
+- Experiment with props and controls to customize the look and feel.
+
+## Template Structure
+
+```typescript
+import type { Meta, StoryFn } from '@storybook/react'
+import { ComponentType } from 'react'
+import {
+	SomeComponent,
+	SomeComponentProps,
+} from '@/components/some-component'
+
+export default {
+	title: 'SomeComponent',
+	component: SomeComponent,
+	argTypes: {
+		placeholder: { control: 'text' },
+		disabled: { control: 'boolean' },
+	},
+	tags: ['autodocs'],
+} as Meta
+
+const Template: StoryFn<SomeComponentProps> = (args) => (
+	<SomeComponent {...args} />
+)
+
+export const Default = Template.bind({})
+Default.args = {
+	placeholder: 'Enter text...',
+	dummyProp: 'Default value',
+}
+
+export const Disabled = Template.bind({})
+Disabled.args = {
+	placeholder: 'Disabled...',
+	disabled: true,
+	dummyProp: 'Disabled state',
+}
+
+export const Dummy = Template.bind({})
+ReadOnly.args = {
+	dummyProp: 'Some state',
+}
+```
+
+Happy coding! 🚀

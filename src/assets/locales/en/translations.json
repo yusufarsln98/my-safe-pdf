@@ -1,0 +1,19 @@
+{
+	"home": {
+		"greeting": "Hello, world!"
+	},
+	"c1": {
+		"options": {
+			"o1": "Option 1",
+			"o2": "Option 2",
+			"o3": "Option 3"
+		},
+		"columns": {
+			"c1": "Column 1",
+			"c2": "Column 2",
+			"c3": "Column 3",
+			"c4": "Column 4",
+			"c5": "Column 5"
+		}
+	}
+}
