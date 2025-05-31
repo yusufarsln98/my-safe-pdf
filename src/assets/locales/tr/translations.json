@@ -1,6 +1,32 @@
 {
 	"home": {
 		"title": "PDF İşlemleriniz için Güvenli, Çevrimdışı ve Ücretsiz Araçlar",
-		"description": "Tüm PDF işlemlerinizi tarayıcınızda, tamamen çevrimdışı ve güvenli bir şekilde yapın. Dosyalarınız asla sunucularımıza yüklenmez. Temel özellikler: PDF'leri birleştirme, bölme, sayfa düzenleme, sayfa silme, döndürme ve görüntüleri (JPG/PNG) PDF'e dönüştürme. Sürükle-bırak ile kolay kullanım ve %100 ÜCRETSİZ!"
+		"description": "Tüm PDF işlemlerinizi tarayıcınızda, tamamen çevrimdışı ve güvenli bir şekilde yapın. Dosyalarınız asla sunucularımıza yüklenmez. Temel özellikler: PDF'leri birleştirme, bölme, sayfa düzenleme, sayfa silme, döndürme ve görüntüleri (JPG/PNG) PDF'e dönüştürme. Sürükle-bırak ile kolay kullanım ve %100 ÜCRETSİZ!",
+		"features": {
+			"merge": {
+				"title": "PDF Birleştir",
+				"description": "En kolay PDF birleştirici ile PDF'leri istediğin sırada birleştirebilirsin."
+			},
+			"split": {
+				"title": "PDF Ayır",
+				"description": "PDF dosyasını sayfa aralıklarına göre bölebilirsin (örn: 1-3, 5 gibi)."
+			},
+			"reorder": {
+				"title": "Sayfa Düzeni",
+				"description": "Sürükle-bırak ile PDF sayfalarının sırasını değiştirebilirsin."
+			},
+			"delete": {
+				"title": "Sayfa Silme",
+				"description": "PDF'den seçtiğin sayfaları kolayca silebilirsin."
+			},
+			"rotate": {
+				"title": "Sayfa Döndürme",
+				"description": "Seçilen sayfaları 90 derece adımlarla döndürebilirsin."
+			},
+			"imagesToPdf": {
+				"title": "Resimden PDF",
+				"description": "JPG ve PNG dosyalarını tek bir PDF'e dönüştürebilirsin."
+			}
+		}
 	}
 }

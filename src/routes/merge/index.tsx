@@ -1,9 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Merge } from '@/pages/merge'
 
 export const Route = createFileRoute('/merge/')({
-	component: RouteComponent,
+	component: Merge,
 })
-
-function RouteComponent() {
-	return <div>Hello "/merge/"!</div>
-}

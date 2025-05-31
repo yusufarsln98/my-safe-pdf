@@ -1,6 +1,32 @@
 {
 	"home": {
 		"title": "Secure, Offline, and Free PDF Tools",
-		"description": "Process all your PDFs directly in your browser, completely offline and secure. Your files are never uploaded to our servers. Core features: merge PDFs, split PDFs, edit pages, delete pages, rotate, and convert images (JPG/PNG) to PDF. Easy drag-and-drop interface and 100% FREE!"
+		"description": "Process all your PDFs directly in your browser, completely offline and secure. Your files are never uploaded to our servers. Core features: merge PDFs, split PDFs, edit pages, delete pages, rotate, and convert images (JPG/PNG) to PDF. Easy drag-and-drop interface and 100% FREE!",
+		"features": {
+			"merge": {
+				"title": "Merge PDF",
+				"description": "Combine multiple PDFs in any order with our easy-to-use PDF merger."
+			},
+			"split": {
+				"title": "Split PDF",
+				"description": "Split PDF into separate files by page ranges (e.g., 1-3, 5)."
+			},
+			"reorder": {
+				"title": "Page Reorder",
+				"description": "Rearrange PDF pages with simple drag-and-drop."
+			},
+			"delete": {
+				"title": "Delete Pages",
+				"description": "Easily remove selected pages from your PDF."
+			},
+			"rotate": {
+				"title": "Rotate Pages",
+				"description": "Rotate selected pages in 90-degree steps."
+			},
+			"imagesToPdf": {
+				"title": "Images to PDF",
+				"description": "Convert JPG and PNG files into a single PDF."
+			}
+		}
 	}
 }

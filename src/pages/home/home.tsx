@@ -1,17 +1,104 @@
-import { Flex, Typography } from 'antd'
+import { Flex, Typography, Row, Col, Card } from 'antd'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from '@tanstack/react-router'
+import mergeIcon from '@/assets/icons/merge.svg'
+import splitIcon from '@/assets/icons/split.svg'
+import reorderIcon from '@/assets/icons/reorder.svg'
 
 const { Title, Paragraph } = Typography
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface HomeProps {}
 
+interface FeatureCardProps {
+	icon: string
+	title: string
+	description: string
+	to?: string
+}
+
+const FeatureCard: React.FC<FeatureCardProps> = ({
+	icon,
+	title,
+	description,
+	to,
+}) => {
+	const CardContent = (
+		<Card
+			hoverable
+			style={{ height: '100%' }}
+		>
+			<Flex
+				vertical
+				gap={12}
+			>
+				<img
+					src={icon}
+					alt={title}
+					style={{ width: 40, height: 40 }}
+				/>
+				<Title
+					level={4}
+					style={{ margin: 0 }}
+				>
+					{title}
+				</Title>
+				<Paragraph
+					type='secondary'
+					style={{ margin: 0 }}
+				>
+					{description}
+				</Paragraph>
+			</Flex>
+		</Card>
+	)
+
+	return to ? <Link to={to}>{CardContent}</Link> : CardContent
+}
+
 export const Home: React.FC<HomeProps> = () => {
 	const { t } = useTranslation()
 
+	const features = [
+		{
+			icon: mergeIcon,
+			title: t('home.features.merge.title'),
+			description: t('home.features.merge.description'),
+			to: '/merge',
+		},
+		{
+			icon: splitIcon,
+			title: t('home.features.split.title'),
+			description: t('home.features.split.description'),
+		},
+		{
+			icon: reorderIcon,
+			title: t('home.features.reorder.title'),
+			description: t('home.features.reorder.description'),
+		},
+		{
+			icon: '/placeholder.svg',
+			title: t('home.features.delete.title'),
+			description: t('home.features.delete.description'),
+		},
+		{
+			icon: '/placeholder.svg',
+			title: t('home.features.rotate.title'),
+			description: t('home.features.rotate.description'),
+		},
+		{
+			icon: '/placeholder.svg',
+			title: t('home.features.imagesToPdf.title'),
+			description: t('home.features.imagesToPdf.description'),
+		},
+	]
+
 	return (
-		<Flex vertical>
+		<Flex
+			vertical
+			gap={64}
+		>
 			<Flex
 				vertical
 				align='center'
@@ -22,11 +109,30 @@ export const Home: React.FC<HomeProps> = () => {
 					style={{
 						fontSize: 18,
 						textAlign: 'center',
+						width: '90%',
 					}}
 				>
 					{t('home.description')}
 				</Paragraph>
 			</Flex>
+
+			<Row
+				gutter={[24, 24]}
+				style={{ width: '100%', padding: '0 24px' }}
+			>
+				{features.map((feature, index) => (
+					<Col
+						key={index}
+						xs={24}
+						sm={12}
+						md={8}
+						lg={8}
+						xl={8}
+					>
+						<FeatureCard {...feature} />
+					</Col>
+				))}
+			</Row>
 		</Flex>
 	)
 }
