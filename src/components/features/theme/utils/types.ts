@@ -1,6 +1,6 @@
 import { ThemeConfig } from 'antd'
 
-export type ThemeName = 'light' | 'dark' | 'light-breeze' | 'midnight-breeze'
+export type ThemeName = 'light' | 'dark'
 
 export interface AppTheme {
 	name: ThemeName

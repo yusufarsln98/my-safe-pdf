@@ -1,5 +1,11 @@
 import { ConfigProvider } from 'antd'
-import React, { createContext, useState, useEffect, ReactNode } from 'react'
+import React, {
+	createContext,
+	useState,
+	useEffect,
+	ReactNode,
+	useMemo,
+} from 'react'
 import { themes } from '../tokens'
 import { ThemeName, ThemeContextType } from '../utils/types'
 
@@ -38,11 +44,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 	}
 
 	// Context value
-	const contextValue: ThemeContextType = {
-		currentTheme,
-		setTheme,
-		themes,
-	}
+	const contextValue = useMemo<ThemeContextType>(
+		() => ({
+			currentTheme,
+			setTheme,
+			themes,
+		}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[currentTheme, themes]
+	)
 
 	return (
 		<ThemeContext.Provider value={contextValue}>

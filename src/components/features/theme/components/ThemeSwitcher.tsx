@@ -18,12 +18,6 @@ const ThemeSwitcher: React.FC = () => {
 	const options: Options = [
 		{ value: 'light', label: 'Light', icon: <BulbOutlined /> },
 		{ value: 'dark', label: 'Dark', icon: <BulbFilled /> },
-		{ value: 'light-breeze', label: 'Light Breeze', icon: <BulbOutlined /> },
-		{
-			value: 'midnight-breeze',
-			label: 'Midnight Breeze',
-			icon: <BulbFilled />,
-		},
 	]
 
 	return (
