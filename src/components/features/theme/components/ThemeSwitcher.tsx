@@ -1,24 +1,13 @@
-import { BulbOutlined, BulbFilled } from '@ant-design/icons'
 import { Select, Space, Typography } from 'antd'
-import React, { ReactElement } from 'react'
+import React from 'react'
+import { THEME_OPTIONS } from '../utils/constants.tsx'
 import { ThemeName } from '../utils/types'
 import { useTheme } from '../utils/useTheme'
-
-type Options = {
-	value: ThemeName
-	label: string
-	icon: ReactElement
-}[]
 
 const { Text } = Typography
 
 const ThemeSwitcher: React.FC = () => {
 	const { currentTheme, setTheme } = useTheme()
-
-	const options: Options = [
-		{ value: 'light', label: 'Light', icon: <BulbOutlined /> },
-		{ value: 'dark', label: 'Dark', icon: <BulbFilled /> },
-	]
 
 	return (
 		<Space>
@@ -26,7 +15,7 @@ const ThemeSwitcher: React.FC = () => {
 			<Select
 				value={currentTheme}
 				onChange={(value: ThemeName) => setTheme(value)}
-				options={options}
+				options={THEME_OPTIONS}
 				optionRender={(option) => (
 					<Space>
 						{option.data.icon}
