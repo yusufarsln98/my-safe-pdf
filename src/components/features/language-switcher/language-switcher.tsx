@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
 import { Dropdown, Button, Flex } from 'antd'
-import { useTranslation } from 'react-i18next'
 import { ItemType } from 'antd/es/menu/interface'
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
 import { ActiveDot } from '@/components/ui/active-dot'
 
 const LanguageIconButton = styled(Button)`

@@ -1,10 +1,10 @@
+import { Dropdown, Button, Flex } from 'antd'
+import { ItemType } from 'antd/es/menu/interface'
 import React from 'react'
 import styled from 'styled-components'
-import { Dropdown, Button, Flex } from 'antd'
 import { THEME_OPTIONS } from '../utils/constants'
 import { ThemeName } from '../utils/types'
 import { useTheme } from '../utils/useTheme'
-import { ItemType } from 'antd/es/menu/interface'
 import { ActiveDot } from '@/components/ui/active-dot'
 
 const ThemeIconButton = styled(Button)`

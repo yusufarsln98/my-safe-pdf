@@ -1,7 +1,7 @@
-import React from 'react'
-import { Upload, Button, Badge, Tooltip } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
+import { Upload, Button, Badge, Tooltip } from 'antd'
 import type { UploadProps } from 'antd'
+import React from 'react'
 import styled from 'styled-components'
 
 const FloatingContainer = styled.div<{ position?: Position }>`

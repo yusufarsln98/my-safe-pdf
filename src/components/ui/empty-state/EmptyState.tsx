@@ -1,8 +1,7 @@
-import React from 'react'
-import { Typography, Upload, Flex } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
-import type { UploadProps } from 'antd'
-import type { FlexProps } from 'antd'
+import { Typography, Upload, Flex } from 'antd'
+import type { UploadProps, FlexProps } from 'antd'
+import React from 'react'
 
 const { Title, Paragraph } = Typography
 const { Dragger } = Upload

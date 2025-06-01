@@ -1,10 +1,10 @@
+import { Link } from '@tanstack/react-router'
 import { Flex, Typography, Row, Col, Card } from 'antd'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from '@tanstack/react-router'
 import mergeIcon from '@/assets/icons/merge.svg'
-import splitIcon from '@/assets/icons/split.svg'
 import reorderIcon from '@/assets/icons/reorder.svg'
+import splitIcon from '@/assets/icons/split.svg'
 
 const { Title, Paragraph } = Typography
 

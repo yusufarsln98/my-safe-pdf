@@ -1,6 +1,6 @@
-import React from 'react'
-import { Button, Typography } from 'antd'
 import { LeftOutlined, DownloadOutlined } from '@ant-design/icons'
+import { Button, Typography } from 'antd'
+import React from 'react'
 import styled from 'styled-components'
 import { MergedPDFPreview } from './MergedPDFPreview'
 

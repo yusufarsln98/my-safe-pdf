@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from 'react'
+import { DeleteOutlined } from '@ant-design/icons'
 import { Flex } from 'antd'
 import type { UploadFile } from 'antd'
-import { DeleteOutlined } from '@ant-design/icons'
+import React, { useMemo, useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
 import {
 	GlobalStyle,
