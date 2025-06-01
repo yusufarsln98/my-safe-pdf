@@ -3,16 +3,20 @@ import { App, Tooltip } from 'antd'
 import type { UploadFile } from 'antd'
 import React, { useMemo, useState } from 'react'
 import {
-	GridItem as StyledGridItem,
 	ThumbnailWrapper,
 	FileInfo,
 	FileName,
 	FileSize,
 	ActionButton,
 	ActionButtons,
-} from '../grid-sortable-pdf-list.styles'
-import type { CustomFile, PDFInfo, SortableItem } from '../types'
-import { formatFileSize } from '../utils'
+	StyledGridItem,
+} from './grid-item.styles'
+import type {
+	CustomFile,
+	PDFInfo,
+	SortableItem,
+} from '../grid-sortable-list/types'
+import { formatFileSize } from '../grid-sortable-list/utils'
 import { PDFThumbnail } from '@/components/ui/pdf-thumbnail'
 import { rotatePDF } from '@/utils/pdf'
 
@@ -23,7 +27,9 @@ interface GridItemProps {
 	onFilesChange: (files: UploadFile[]) => void
 	files: UploadFile[]
 	showDeleteButton?: boolean
+	showRotateButton?: boolean
 	renderCustomFileInfo?: (file: UploadFile) => React.ReactNode
+	pageNumber?: number
 }
 
 export const GridItem = React.memo(
@@ -34,7 +40,9 @@ export const GridItem = React.memo(
 		onFilesChange,
 		files,
 		showDeleteButton = true,
+		showRotateButton = true,
 		renderCustomFileInfo,
+		pageNumber = 1,
 	}: GridItemProps) => {
 		const [pdfInfo, setPdfInfo] = useState<PDFInfo>({
 			fileName: file.name,
@@ -113,7 +121,7 @@ export const GridItem = React.memo(
 			<StyledGridItem>
 				<ActionButtons className='action-buttons ignoreDrag'>
 					{showDeleteButton && (
-						<Tooltip title='Delete'>
+						<Tooltip title='Delete PDF'>
 							<ActionButton
 								variant='filled'
 								color='red'
@@ -123,18 +131,21 @@ export const GridItem = React.memo(
 							/>
 						</Tooltip>
 					)}
-					<Tooltip title='Rotate'>
-						<ActionButton
-							variant='filled'
-							color='blue'
-							size='small'
-							icon={<RotateRightOutlined spin={isRotating} />}
-							onClick={handleRotate}
-						/>
-					</Tooltip>
+					{showRotateButton && (
+						<Tooltip title='Rotate All Pages'>
+							<ActionButton
+								variant='filled'
+								color='blue'
+								size='small'
+								icon={<RotateRightOutlined spin={isRotating} />}
+								onClick={handleRotate}
+							/>
+						</Tooltip>
+					)}
 				</ActionButtons>
 				<ThumbnailWrapper>
 					<PDFThumbnail
+						pageNumber={pageNumber}
 						file={pdfFile}
 						onLoadSuccess={handleLoadSuccess}
 					/>

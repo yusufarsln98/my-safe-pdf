@@ -1,5 +1,4 @@
-import { Button } from 'antd'
-import styled, { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 interface GlobalStyleProps {
 	gridGap: number
@@ -31,89 +30,4 @@ export const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
             border-radius: ${(props) => props.theme.borderRadius}px;
         }
     }
-`
-
-export const ActionButtons = styled.div`
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	display: flex;
-	gap: 4px;
-	opacity: 0;
-	transition: opacity 0.2s ease;
-	z-index: 2;
-`
-
-export const GridItem = styled.div`
-	position: relative;
-	background: ${(props) => props.theme.colorBgContainer};
-	border: 1px solid ${(props) => props.theme.colorBorder};
-	border-radius: ${(props) => props.theme.borderRadius}px;
-	padding: 16px;
-	cursor: grab;
-	transition: all 0.2s ease;
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-
-	&:hover {
-		border-color: ${(props) => props.theme.colorPrimary};
-		box-shadow: ${(props) => props.theme.boxShadowTertiary};
-
-		.action-buttons {
-			opacity: 1;
-		}
-	}
-
-	&:active {
-		cursor: grabbing;
-	}
-`
-
-export const ThumbnailWrapper = styled.div`
-	position: relative;
-	width: 100%;
-	aspect-ratio: 1/1.4;
-	background: ${(props) => props.theme.colorFillQuaternary};
-	border-radius: ${(props) => props.theme.borderRadius}px;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	.react-pdf__Document {
-		width: 100%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-`
-
-export const FileInfo = styled.div`
-	text-align: center;
-`
-
-export const FileName = styled.div`
-	color: ${(props) => props.theme.colorText};
-	font-size: 14px;
-	font-weight: 500;
-	margin-bottom: 4px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-`
-
-export const FileSize = styled.div`
-	color: ${(props) => props.theme.colorTextDescription};
-	font-size: 12px;
-`
-
-export const ActionButton = styled(Button)`
-	background: ${(props) => props.theme.colorBgContainer};
-	box-shadow: ${(props) => props.theme.boxShadow};
-
-	&:hover {
-		background: ${(props) => props.theme.colorBgContainer} !important;
-	}
 `

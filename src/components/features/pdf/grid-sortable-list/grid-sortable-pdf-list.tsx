@@ -2,9 +2,9 @@ import { Flex } from 'antd'
 import type { UploadFile } from 'antd'
 import React, { useMemo } from 'react'
 import { ReactSortable } from 'react-sortablejs'
-import { GridItem } from './components/grid-item'
 import { GlobalStyle } from './grid-sortable-pdf-list.styles'
 import type { SortableItem } from './types'
+import { GridItem } from '../components/grid-item'
 
 export interface GridSortablePdfListProps {
 	files: UploadFile[]
