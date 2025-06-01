@@ -29,7 +29,7 @@ export interface PDFThumbnailProps {
 	file: PDFSource
 	width?: number
 	height?: number
-	onLoadSuccess?: () => void
+	onLoadSuccess?: (info: { numPages: number }) => void
 	onLoadError?: (error: Error) => void
 	loadingText?: string
 	errorText?: string
@@ -71,35 +71,31 @@ const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({
 		loadFile()
 	}, [file, errorText, onLoadError])
 
-	if (error || !fileData) {
-		return (
-			<ThumbnailContainer>
-				<LoadingText>{error || loadingText}</LoadingText>
-			</ThumbnailContainer>
-		)
-	}
-
 	return (
 		<ThumbnailContainer>
-			<Document
-				file={fileData}
-				loading={<LoadingText>{loadingText}</LoadingText>}
-				error={<LoadingText>{errorText}</LoadingText>}
-				onLoadError={(err: Error) => {
-					console.error('PDF load error:', err)
-					setError(errorText)
-					onLoadError?.(err)
-				}}
-				onLoadSuccess={onLoadSuccess}
-			>
-				<Page
-					pageNumber={1}
-					width={width}
-					height={height}
-					renderAnnotationLayer={false}
-					renderTextLayer={false}
-				/>
-			</Document>
+			{error || !fileData ? (
+				<LoadingText>{error || loadingText}</LoadingText>
+			) : (
+				<Document
+					file={fileData}
+					loading={<LoadingText>{loadingText}</LoadingText>}
+					error={<LoadingText>{errorText}</LoadingText>}
+					onLoadError={(err: Error) => {
+						console.error('PDF load error:', err)
+						setError(errorText)
+						onLoadError?.(err)
+					}}
+					onLoadSuccess={onLoadSuccess}
+				>
+					<Page
+						pageNumber={1}
+						width={width}
+						height={height}
+						renderAnnotationLayer={false}
+						renderTextLayer={false}
+					/>
+				</Document>
+			)}
 		</ThumbnailContainer>
 	)
 }

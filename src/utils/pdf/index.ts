@@ -1,2 +1,2 @@
-export { mergePDFs, downloadPDF, PDFError } from './pdfUtils'
-export type { PDFMergeOptions, PDFDownloadOptions } from './pdfUtils'
+export { mergePDFs, downloadPDF, PDFError } from './mergeUtils'
+export type { PDFMergeOptions, PDFDownloadOptions } from './mergeUtils'

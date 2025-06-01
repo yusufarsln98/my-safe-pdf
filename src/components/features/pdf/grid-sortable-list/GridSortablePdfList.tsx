@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Flex } from 'antd'
 import type { UploadFile } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
@@ -41,6 +41,20 @@ interface GridItemProps {
 	renderCustomFileInfo?: (file: UploadFile) => React.ReactNode
 }
 
+interface PDFInfo {
+	numPages?: number
+	fileSize?: string
+	fileName?: string
+}
+
+const formatFileSize = (bytes: number): string => {
+	if (bytes === 0) return '0 B'
+	const k = 1024
+	const sizes = ['B', 'KB', 'MB', 'GB']
+	const i = Math.floor(Math.log(bytes) / Math.log(k))
+	return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`
+}
+
 const GridItemComponent = React.memo(
 	({
 		file,
@@ -49,6 +63,11 @@ const GridItemComponent = React.memo(
 		showDeleteButton = true,
 		renderCustomFileInfo,
 	}: GridItemProps) => {
+		const [pdfInfo, setPdfInfo] = useState<PDFInfo>({
+			fileName: file.name,
+			fileSize: formatFileSize(file.size || 0),
+		})
+
 		const pdfFile = useMemo(() => {
 			// First try to get the actual File object
 			if (file.originFileObj) {
@@ -68,6 +87,10 @@ const GridItemComponent = React.memo(
 
 		if (!pdfFile) return null
 
+		const handleLoadSuccess = ({ numPages }: { numPages: number }) => {
+			setPdfInfo((prev) => ({ ...prev, numPages }))
+		}
+
 		return (
 			<StyledGridItem>
 				{showDeleteButton && (
@@ -81,14 +104,20 @@ const GridItemComponent = React.memo(
 					/>
 				)}
 				<ThumbnailWrapper>
-					<PDFThumbnail file={pdfFile} />
+					<PDFThumbnail
+						file={pdfFile}
+						onLoadSuccess={handleLoadSuccess}
+					/>
 				</ThumbnailWrapper>
 				{renderCustomFileInfo ? (
 					renderCustomFileInfo(file)
 				) : (
 					<FileInfo>
 						<FileName>{file.name}</FileName>
-						<FileSize>{`${((file.size || 0) / 1024 / 1024).toFixed(2)} MB`}</FileSize>
+						<FileSize>
+							{pdfInfo.fileSize}
+							{pdfInfo.numPages && ` • ${pdfInfo.numPages} pages`}
+						</FileSize>
 					</FileInfo>
 				)}
 			</StyledGridItem>
