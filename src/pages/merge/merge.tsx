@@ -1,46 +1,14 @@
 import React, { useState } from 'react'
-import { Alert, Layout, Button, Typography, message } from 'antd'
-import { usePdfFiles } from './hooks/usePdfFiles'
-import { EmptyState } from './components/EmptyState'
-import { FloatingUploadButton } from './components/FloatingUploadButton'
-import { GridSortablePdfList } from './components/GridSortablePdfList'
-import { mergePDFs, downloadPDF } from './utils/pdfUtils'
-import { MergeSuccess } from './components/MergeSuccess'
-import styled from 'styled-components'
+import { Alert, Typography, Button, message } from 'antd'
+import { usePdfFiles } from '../../hooks/pdf'
+import { EmptyState } from '../../components/ui/empty-state'
+import { FloatingUploadButton } from '../../components/ui/floating-upload-button'
+import { GridSortablePdfList } from '../../components/features/pdf/grid-sortable-list'
+import { mergePDFs, downloadPDF } from '../../utils/pdf'
+import { MergeSuccess } from '../../components/features/pdf/merge-success'
+import { PageLayout, SidebarLayout } from '../../components/ui/layout'
 
-const { Content, Sider } = Layout
-
-const Container = styled(Layout)`
-	min-height: calc(100vh - 64px);
-`
-
-const StyledContent = styled(Content)`
-	display: flex;
-	flex-direction: column;
-	padding: 24px;
-	flex: 1;
-`
-
-const StyledSider = styled(Sider)`
-	min-height: calc(100vh - 64px);
-	background-color: ${(props) => props.theme.colorBgContainer};
-	border-left: ${(props) => props.theme.colorBorder} 1px solid;
-	display: flex;
-	flex-direction: column;
-`
-
-const SidebarContent = styled.div`
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	padding: 16px;
-	flex: 1;
-`
-
-const SidebarTitleContainer = styled.div`
-	border-bottom: ${(props) => props.theme.colorBorder} 1px solid;
-	padding: 16px;
-`
+const { Title } = Typography
 
 export const Merge: React.FC = () => {
 	const { fileList, uploadProps, removeFile, setFileList } = usePdfFiles()
@@ -49,19 +17,19 @@ export const Merge: React.FC = () => {
 	const handleMerge = async () => {
 		try {
 			message.loading({
-				content: 'PDF dosyaları birleştiriliyor...',
+				content: 'Merging PDF files...',
 				key: 'merging',
 			})
-			const pdfBytes = await mergePDFs(fileList)
+			const pdfBytes = await mergePDFs({ files: fileList })
 			setMergedPdfBytes(pdfBytes)
 			message.success({
-				content: 'PDF dosyaları başarıyla birleştirildi!',
+				content: 'PDF files merged successfully!',
 				key: 'merging',
 			})
 		} catch (error) {
 			console.error('Error merging PDFs:', error)
 			message.error({
-				content: 'PDF dosyaları birleştirilirken bir hata oluştu.',
+				content: 'Error merging PDF files.',
 				key: 'merging',
 			})
 		}
@@ -69,7 +37,7 @@ export const Merge: React.FC = () => {
 
 	const handleDownload = () => {
 		if (mergedPdfBytes) {
-			downloadPDF(mergedPdfBytes, 'birlestirilmis.pdf')
+			downloadPDF({ pdfBytes: mergedPdfBytes })
 		}
 	}
 
@@ -87,55 +55,57 @@ export const Merge: React.FC = () => {
 		)
 	}
 
+	const sidebarContent = (
+		<SidebarLayout
+			title={
+				<Title
+					level={5}
+					style={{ margin: 0, padding: 0 }}
+				>
+					Merge PDFs
+				</Title>
+			}
+		>
+			<Alert
+				message="Click 'Select PDF files' button again to select multiple PDF files. Hold 'Ctrl' key to select multiple files."
+				type='info'
+			/>
+		</SidebarLayout>
+	)
+
 	return (
-		<Container>
+		<PageLayout sider={fileList.length > 0 ? sidebarContent : undefined}>
 			{fileList.length === 0 ? (
-				<StyledContent>
-					<EmptyState uploadProps={uploadProps} />
-				</StyledContent>
+				<EmptyState
+					uploadProps={uploadProps}
+					title='Merge PDFs'
+					description='Merge multiple PDF files into one. Drag and drop or select files, reorder them, and merge.'
+				/>
 			) : (
 				<>
-					<StyledContent>
-						<GridSortablePdfList
-							files={fileList}
-							onFilesChange={setFileList}
-							onRemoveFile={removeFile}
-							showMergeButton={false}
-						/>
-						<Button
-							type='primary'
-							size='large'
-							disabled={fileList.length < 2}
-							style={{ width: '100%', marginTop: '24px' }}
-							onClick={handleMerge}
-						>
-							PDF'leri Birleştir
-						</Button>
-					</StyledContent>
-					<StyledSider width={300}>
-						<SidebarTitleContainer>
-							<Typography.Title
-								level={5}
-								style={{ margin: 0, padding: 0 }}
-							>
-								PDF'leri Birleştir
-							</Typography.Title>
-						</SidebarTitleContainer>
-						<SidebarContent>
-							<Alert
-								message="Lütfen, 'PDF dosyaları seç' düğmesine tekrar tıklayarak birden fazla PDF dosyası seç. 'Ctrl' tuşunu basılı tutarak birden fazla dosyayı seçebilirsin."
-								type='info'
-							/>
-						</SidebarContent>
-					</StyledSider>
+					<GridSortablePdfList
+						files={fileList}
+						onFilesChange={setFileList}
+						onRemoveFile={removeFile}
+					/>
+					<Button
+						type='primary'
+						size='large'
+						disabled={fileList.length < 2}
+						style={{ width: '100%', marginTop: '24px' }}
+						onClick={handleMerge}
+					>
+						Merge PDFs
+					</Button>
 				</>
 			)}
 			{fileList.length > 0 && (
 				<FloatingUploadButton
 					uploadProps={uploadProps}
 					badgeCount={fileList.length}
+					tooltipText='Add more files'
 				/>
 			)}
-		</Container>
+		</PageLayout>
 	)
 }
