@@ -6,7 +6,6 @@ import { AppHeader } from './app-header'
 const { Content } = Layout
 
 const StyledContent = styled(Content)`
-	padding: 24px;
 	margin: 0;
 	min-height: 280px;
 `

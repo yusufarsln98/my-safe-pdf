@@ -12,6 +12,7 @@ const { Header } = Layout
 const StyledHeader = styled(Header)`
 	background-color: ${(props) => props.theme.colorBgContainer};
 	box-shadow: ${(props) => props.theme.boxShadowTertiary};
+	z-index: 1000;
 	display: flex;
 	align-items: center;
 	padding: 0 32px;

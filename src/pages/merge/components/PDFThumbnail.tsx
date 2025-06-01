@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Document, Page, pdfjs } from 'react-pdf'
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
 import styled from 'styled-components'
@@ -15,29 +15,45 @@ interface PDFThumbnailProps {
 	file: File | string | { url: string }
 }
 
-export const PDFThumbnail: React.FC<PDFThumbnailProps> = ({ file }) => {
-	// Convert File object to URL if needed
-	const pdfUrl =
-		file instanceof File
-			? URL.createObjectURL(file)
-			: typeof file === 'string'
-				? file
-				: file.url
+const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({ file }) => {
+	const [fileData, setFileData] = useState<ArrayBuffer | string | null>(null)
+	const [error, setError] = useState<string | null>(null)
 
-	React.useEffect(() => {
-		// Cleanup URL when component unmounts
-		return () => {
-			if (file instanceof File) {
-				URL.revokeObjectURL(pdfUrl)
+	useEffect(() => {
+		const loadFile = async () => {
+			try {
+				if (file instanceof File) {
+					const buffer = await file.arrayBuffer()
+					setFileData(buffer)
+				} else if (typeof file === 'string') {
+					setFileData(file)
+				} else if (file && typeof file === 'object' && 'url' in file) {
+					setFileData(file.url)
+				} else {
+					throw new Error('Invalid file type')
+				}
+			} catch (err) {
+				console.error('Error loading file:', err)
+				setError('PDF yüklenemedi')
 			}
 		}
-	}, [file, pdfUrl])
+
+		loadFile()
+	}, [file])
+
+	if (error || !fileData) {
+		return <LoadingText>{error || 'Yükleniyor...'}</LoadingText>
+	}
 
 	return (
 		<Document
-			file={pdfUrl}
+			file={fileData}
 			loading={<LoadingText>Yükleniyor...</LoadingText>}
 			error={<LoadingText>Yüklenemedi</LoadingText>}
+			onLoadError={(err: Error) => {
+				console.error('PDF load error:', err)
+				setError('PDF yüklenemedi')
+			}}
 		>
 			<Page
 				pageNumber={1}
@@ -49,3 +65,5 @@ export const PDFThumbnail: React.FC<PDFThumbnailProps> = ({ file }) => {
 		</Document>
 	)
 }
+
+export const PDFThumbnail = React.memo(PDFThumbnailComponent)

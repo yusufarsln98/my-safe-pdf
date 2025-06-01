@@ -7,7 +7,6 @@ export const GlobalStyle = createGlobalStyle`
         grid-gap: 16px;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         grid-auto-rows: minmax(280px, auto);
-        padding: 16px;
         background: ${(props) => props.theme.colorBgLayout};
         border-radius: ${(props) => props.theme.borderRadius}px;
     }

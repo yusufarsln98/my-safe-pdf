@@ -1,11 +1,11 @@
-import React from 'react'
-import { Button, Typography, Flex } from 'antd'
+import React, { useMemo } from 'react'
+import { Flex } from 'antd'
 import type { UploadFile } from 'antd'
 import { DeleteOutlined } from '@ant-design/icons'
 import { ReactSortable } from 'react-sortablejs'
 import {
 	GlobalStyle,
-	GridItem,
+	GridItem as StyledGridItem,
 	ThumbnailWrapper,
 	FileInfo,
 	FileName,
@@ -14,12 +14,11 @@ import {
 } from './GridSortablePdfList.styles'
 import { PDFThumbnail } from './PDFThumbnail'
 
-const { Title } = Typography
-
 interface GridSortablePdfListProps {
 	files: UploadFile[]
 	onFilesChange: (files: UploadFile[]) => void
 	onRemoveFile: (index: number) => void
+	showMergeButton?: boolean
 }
 
 // Extend UploadFile to include required sortable properties
@@ -29,23 +28,76 @@ type SortableItem = UploadFile & {
 	selected: boolean
 }
 
+const GridItemComponent = React.memo(
+	({
+		file,
+		index,
+		onRemove,
+	}: {
+		file: SortableItem
+		index: number
+		onRemove: (index: number) => void
+	}) => {
+		const pdfFile = useMemo(() => {
+			// First try to get the actual File object
+			if (file.originFileObj) {
+				return file.originFileObj as File
+			}
+			// If we have a URL, use that
+			if (file.url) {
+				return { url: file.url }
+			}
+			// If we have a thumbUrl, use that as a fallback
+			if (file.thumbUrl) {
+				return { url: file.thumbUrl }
+			}
+			console.error('No valid file source found:', file)
+			return null
+		}, [file])
+
+		if (!pdfFile) return null
+
+		return (
+			<StyledGridItem>
+				<DeleteButton
+					className='delete-button ignoreDrag'
+					type='text'
+					size='small'
+					danger
+					icon={<DeleteOutlined />}
+					onClick={() => onRemove(index)}
+				/>
+				<ThumbnailWrapper>
+					<PDFThumbnail file={pdfFile} />
+				</ThumbnailWrapper>
+				<FileInfo>
+					<FileName>{file.name}</FileName>
+					<FileSize>{`${((file.size || 0) / 1024 / 1024).toFixed(2)} MB`}</FileSize>
+				</FileInfo>
+			</StyledGridItem>
+		)
+	}
+)
+
 export const GridSortablePdfList: React.FC<GridSortablePdfListProps> = ({
 	files,
 	onFilesChange,
 	onRemoveFile,
 }) => {
+	const sortableFiles: SortableItem[] = useMemo(
+		() =>
+			files.map((file) => ({
+				...file,
+				id: file.uid,
+				chosen: false,
+				selected: false,
+			})),
+		[files]
+	)
+
 	if (files.length === 0) return null
 
-	// Convert UploadFile array to SortableItem array
-	const sortableFiles: SortableItem[] = files.map((file) => ({
-		...file,
-		id: file.uid,
-		chosen: false,
-		selected: false,
-	}))
-
 	const handleSortableChange = (newState: SortableItem[]) => {
-		// Convert back to UploadFile array by copying only UploadFile properties
 		const newFiles = newState.map((item) => {
 			const uploadFile: UploadFile = Object.assign({}, item)
 			return uploadFile
@@ -61,9 +113,9 @@ export const GridSortablePdfList: React.FC<GridSortablePdfListProps> = ({
 		<Flex
 			vertical
 			gap={24}
+			style={{ width: '100%' }}
 		>
 			<GlobalStyle />
-			<Title level={4}>Yüklenen Dosyalar</Title>
 			<ReactSortable
 				list={sortableFiles}
 				setList={handleSortableChange}
@@ -78,40 +130,14 @@ export const GridSortablePdfList: React.FC<GridSortablePdfListProps> = ({
 				}}
 			>
 				{sortableFiles.map((file, index) => (
-					<GridItem key={file.uid}>
-						<DeleteButton
-							className='delete-button ignoreDrag'
-							type='text'
-							size='small'
-							danger
-							icon={<DeleteOutlined />}
-							onClick={() => onRemoveFile(index)}
-						/>
-						<ThumbnailWrapper>
-							<PDFThumbnail
-								file={
-									file.originFileObj || {
-										url:
-											file.url || URL.createObjectURL(file as unknown as Blob),
-									}
-								}
-							/>
-						</ThumbnailWrapper>
-						<FileInfo>
-							<FileName>{file.name}</FileName>
-							<FileSize>{`${((file.size || 0) / 1024 / 1024).toFixed(2)} MB`}</FileSize>
-						</FileInfo>
-					</GridItem>
+					<GridItemComponent
+						key={file.uid}
+						file={file}
+						index={index}
+						onRemove={onRemoveFile}
+					/>
 				))}
 			</ReactSortable>
-
-			<Button
-				type='primary'
-				size='large'
-				disabled={files.length < 2}
-			>
-				PDF'leri Birleştir
-			</Button>
 		</Flex>
 	)
 }

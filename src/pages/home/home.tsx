@@ -98,6 +98,7 @@ export const Home: React.FC<HomeProps> = () => {
 		<Flex
 			vertical
 			gap={64}
+			style={{ padding: '24px' }}
 		>
 			<Flex
 				vertical

@@ -9,24 +9,23 @@ const FloatingContainer = styled.div`
 	right: 24px;
 	bottom: 24px;
 	z-index: 1000;
-	pointer-events: none; /* Prevents scrollbar issues */
-
-	/* Restore pointer events for the actual content */
-	> * {
-		pointer-events: auto;
-	}
 `
 
 interface FloatingUploadButtonProps {
 	uploadProps: UploadProps
+	badgeCount?: number
 }
 
 export const FloatingUploadButton: React.FC<FloatingUploadButtonProps> = ({
 	uploadProps,
+	badgeCount,
 }) => {
 	return (
 		<FloatingContainer>
-			<Badge count={1}>
+			<Badge
+				count={badgeCount}
+				offset={[0, 0]}
+			>
 				<Upload
 					{...uploadProps}
 					showUploadList={false}
@@ -39,8 +38,7 @@ export const FloatingUploadButton: React.FC<FloatingUploadButtonProps> = ({
 							type='primary'
 							shape='circle'
 							icon={<PlusOutlined />}
-							size='large'
-							style={{ width: 56, height: 56 }}
+							style={{ width: 48, height: 48 }}
 						/>
 					</Tooltip>
 				</Upload>
