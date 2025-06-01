@@ -2,7 +2,7 @@ import { LeftOutlined, DownloadOutlined } from '@ant-design/icons'
 import { Button, Typography } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
-import { MergedPDFPreview } from './MergedPDFPreview'
+import { MergedPDFPreview } from './merged-pdf-preview'
 
 const { Title } = Typography
 

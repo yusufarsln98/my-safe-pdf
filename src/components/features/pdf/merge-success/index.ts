@@ -1,4 +1,2 @@
-export { MergeSuccess } from './MergeSuccess'
-export { MergedPDFPreview } from './MergedPDFPreview'
-export type { MergeSuccessProps } from './MergeSuccess'
-export type { MergedPDFPreviewProps } from './MergedPDFPreview'
+export * from './merge-success'
+export * from './merged-pdf-preview'
