@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const StyledRangeGridItem = styled.div`
 	position: relative;
-	background: ${(props) => props.theme.colorBgContainer};
-	border: 1px dashed ${(props) => props.theme.colorBorder};
+	max-width: 320px;
+	border: 2px dashed ${(props) => props.theme.colorBorder};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	padding: 16px;
 	cursor: grab;
@@ -29,7 +29,6 @@ export const StyledRangeGridItem = styled.div`
 export const ThumbnailWrapper = styled.div`
 	position: relative;
 	width: 100%;
-	aspect-ratio: 1/1.4;
 	background: ${(props) => props.theme.colorFillQuaternary};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	border: 1px solid ${(props) => props.theme.colorBorder};
@@ -37,9 +36,13 @@ export const ThumbnailWrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
+	padding: 4px;
+	padding-bottom: 0;
 
 	.react-pdf__Document {
 		width: 100%;
+		max-width: 116px;
 		height: 100%;
 		display: flex;
 		align-items: center;

@@ -60,7 +60,7 @@ export const usePdfFiles = ({
 
 	const uploadProps: UploadProps = {
 		accept: '.pdf',
-		multiple: true,
+		multiple: maxFiles > 1,
 		fileList,
 		beforeUpload: (file) => {
 			// Check file type

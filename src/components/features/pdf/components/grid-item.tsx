@@ -18,7 +18,7 @@ import type {
 } from '../grid-sortable-list/types'
 import { formatFileSize } from '../grid-sortable-list/utils'
 import { PDFThumbnail } from '@/components/ui/pdf-thumbnail'
-import { rotatePDF } from '@/utils/pdf'
+import { rotatePDF } from '@/utils/pdf/mergeUtils'
 
 interface GridItemProps {
 	file: SortableItem

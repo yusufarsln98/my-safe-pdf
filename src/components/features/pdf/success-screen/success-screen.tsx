@@ -1,8 +1,8 @@
 import { LeftOutlined, DownloadOutlined } from '@ant-design/icons'
-import { Button, Typography } from 'antd'
+import { Button, Flex, Typography } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
-import { MergedPDFPreview } from './merged-pdf-preview'
+import { PDFPreview } from './pdf-preview'
 
 const { Title } = Typography
 
@@ -11,7 +11,7 @@ const Container = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	min-height: calc(100vh - 64px);
+	min-height: calc(100vh - 120px);
 	padding: 24px;
 	position: relative;
 `
@@ -41,20 +41,22 @@ const ContentContainer = styled.div`
 	width: 100%;
 `
 
-export interface MergeSuccessProps {
+export interface SuccessScreenProps {
 	onBack: () => void
 	onDownload: () => void
-	mergedPdfBytes: Uint8Array
+	pdfBytes: Uint8Array
 	title?: string
 	downloadButtonText?: string
+	hidePreview?: boolean
 }
 
-export const MergeSuccess: React.FC<MergeSuccessProps> = ({
+export const SuccessScreen: React.FC<SuccessScreenProps> = ({
 	onBack,
 	onDownload,
-	mergedPdfBytes,
-	title = 'PDFs merged successfully!',
-	downloadButtonText = 'Download merged PDF',
+	pdfBytes,
+	title = 'Operation completed successfully!',
+	downloadButtonText = 'Download PDF',
+	hidePreview,
 }) => {
 	return (
 		<Container>
@@ -66,8 +68,15 @@ export const MergeSuccess: React.FC<MergeSuccessProps> = ({
 				size='large'
 			/>
 			<ContentContainer>
-				<Title level={2}>{title}</Title>
-				<MergedPDFPreview pdfBytes={mergedPdfBytes} />
+				<Title
+					level={2}
+					style={{
+						textAlign: 'center',
+					}}
+				>
+					{title}
+				</Title>
+				{!hidePreview && <PDFPreview pdfBytes={pdfBytes} />}
 				<DownloadButton
 					type='primary'
 					size='large'

@@ -1,5 +1,5 @@
 import { DeleteOutlined, EllipsisOutlined } from '@ant-design/icons'
-import { Tooltip } from 'antd'
+import { Tooltip, Typography } from 'antd'
 import type { UploadFile } from 'antd'
 import React, { useMemo, useState } from 'react'
 import {
@@ -15,10 +15,17 @@ import { PDFThumbnail } from '@/components/ui/pdf-thumbnail'
 import styled from 'styled-components'
 import { StyledRangeGridItem, ThumbnailWrapper } from './range-grid-item.styles'
 
+const { Text } = Typography
+
 const PreviewContainer = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 8px;
+`
+
+const PageNumber = styled(Text)`
+	color: ${(props) => props.theme.colorTextSecondary};
+	font-size: 12px;
 `
 
 const EllipsisIcon = styled(EllipsisOutlined)`
@@ -27,13 +34,14 @@ const EllipsisIcon = styled(EllipsisOutlined)`
 `
 
 interface GridItemProps {
-	file: SortableItem
+	file: SortableItem | UploadFile
 	index: number
 	onRemove: (index: number) => void
 	showDeleteButton?: boolean
 	renderCustomFileInfo?: (file: UploadFile) => React.ReactNode
 	startingPage?: number
 	endingPage?: number
+	onLoadSuccess?: ({ numPages }: { numPages: number }) => void
 }
 
 export const RangeGridItem = React.memo(
@@ -45,6 +53,7 @@ export const RangeGridItem = React.memo(
 		renderCustomFileInfo,
 		startingPage = 1,
 		endingPage = 1,
+		onLoadSuccess,
 	}: GridItemProps) => {
 		const [pdfInfo, setPdfInfo] = useState<PDFInfo>({
 			fileName: file.name,
@@ -68,10 +77,13 @@ export const RangeGridItem = React.memo(
 			return null
 		}, [file])
 
+		const isSamePage = startingPage === endingPage
+
 		if (!pdfFile) return null
 
 		const handleLoadSuccess = ({ numPages }: { numPages: number }) => {
 			setPdfInfo((prev) => ({ ...prev, numPages }))
+			onLoadSuccess?.({ numPages })
 		}
 
 		return (
@@ -96,15 +108,21 @@ export const RangeGridItem = React.memo(
 							file={pdfFile}
 							onLoadSuccess={handleLoadSuccess}
 						/>
+						<PageNumber>{startingPage}</PageNumber>
 					</ThumbnailWrapper>
-					<EllipsisIcon />
-					<ThumbnailWrapper>
-						<PDFThumbnail
-							pageNumber={endingPage}
-							file={pdfFile}
-							onLoadSuccess={handleLoadSuccess}
-						/>
-					</ThumbnailWrapper>
+					{!isSamePage && (
+						<>
+							<EllipsisIcon />
+							<ThumbnailWrapper>
+								<PDFThumbnail
+									pageNumber={endingPage}
+									file={pdfFile}
+									onLoadSuccess={handleLoadSuccess}
+								/>
+								<PageNumber>{endingPage}</PageNumber>
+							</ThumbnailWrapper>
+						</>
+					)}
 				</PreviewContainer>
 				{renderCustomFileInfo ? (
 					renderCustomFileInfo(file)
@@ -112,8 +130,7 @@ export const RangeGridItem = React.memo(
 					<FileInfo>
 						<FileName>{file.name}</FileName>
 						<FileSize>
-							{pdfInfo.fileSize}
-							{pdfInfo.numPages && ` • ${pdfInfo.numPages} pages`}
+							{pdfInfo.fileSize} - [{startingPage} - {endingPage}]
 						</FileSize>
 					</FileInfo>
 				)}

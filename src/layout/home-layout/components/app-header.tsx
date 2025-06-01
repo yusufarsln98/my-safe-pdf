@@ -37,7 +37,12 @@ const MENU_ITEMS: {
 	{
 		key: 'merge',
 		path: '/merge',
-		label: 'Merge',
+		label: 'Merge PDFs',
+	},
+	{
+		key: 'split',
+		path: '/split',
+		label: 'Split PDF',
 	},
 ]
 

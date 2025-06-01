@@ -13,22 +13,23 @@ const LoadingText = styled.div`
 
 const ThumbnailContainer = styled.div`
 	position: relative;
-	width: 170px;
-	height: 240px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background: ${(props) => props.theme.colorBgContainer};
 	border-radius: 4px;
 	overflow: hidden;
+
+	.react-pdf__Page__canvas {
+		width: 100% !important;
+		height: 100% !important;
+	}
 `
 
 export type PDFSource = File | string | { url: string }
 
 export interface PDFThumbnailProps {
 	file: PDFSource
-	width?: number
-	height?: number
 	onLoadSuccess?: (info: { numPages: number }) => void
 	onLoadError?: (error: Error) => void
 	loadingText?: string
@@ -38,8 +39,6 @@ export interface PDFThumbnailProps {
 
 const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({
 	file,
-	width = 170,
-	height = 240,
 	onLoadSuccess,
 	onLoadError,
 	loadingText = 'Loading...',
@@ -91,8 +90,6 @@ const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({
 				>
 					<Page
 						pageNumber={pageNumber}
-						width={width}
-						height={height}
 						renderAnnotationLayer={false}
 						renderTextLayer={false}
 					/>

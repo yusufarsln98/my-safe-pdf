@@ -47,7 +47,7 @@ export const ActionButtons = styled.div`
 export const ThumbnailWrapper = styled.div`
 	position: relative;
 	width: 100%;
-	aspect-ratio: 1/1.4;
+	height: 200px;
 	background: ${(props) => props.theme.colorFillQuaternary};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	overflow: hidden;

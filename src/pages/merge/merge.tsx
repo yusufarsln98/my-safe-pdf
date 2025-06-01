@@ -1,11 +1,12 @@
 import { Alert, Typography, Button, message } from 'antd'
 import React, { useState } from 'react'
-import { GridSortablePdfList, MergeSuccess } from '@/components/features/pdf'
+import { GridSortablePdfList } from '@/components/features/pdf'
 import { EmptyState } from '@/components/ui/empty-state'
 import { FloatingUploadButton } from '@/components/ui/floating-upload-button'
 import { usePdfFiles } from '@/hooks/pdf'
 import { PageLayout, SidebarLayout } from '@/layout/page-layout'
 import { mergePDFs, downloadPDF } from '@/utils/pdf'
+import { SuccessScreen } from '@/components/features/pdf/success-screen'
 
 const { Title } = Typography
 
@@ -46,10 +47,13 @@ export const Merge: React.FC = () => {
 
 	if (mergedPdfBytes) {
 		return (
-			<MergeSuccess
+			<SuccessScreen
 				onBack={handleBack}
 				onDownload={handleDownload}
-				mergedPdfBytes={mergedPdfBytes}
+				pdfBytes={mergedPdfBytes}
+				title='PDF files merged successfully!'
+				downloadButtonText='Download Merged PDF'
+				hidePreview={false}
 			/>
 		)
 	}

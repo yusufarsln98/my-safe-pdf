@@ -10,12 +10,12 @@ const PreviewButton = styled(Button)`
 	max-width: 400px;
 `
 
-export interface MergedPDFPreviewProps {
+export interface PDFPreviewProps {
 	pdfBytes: Uint8Array
 	previewButtonText?: string
 }
 
-export const MergedPDFPreview: React.FC<MergedPDFPreviewProps> = ({
+export const PDFPreview: React.FC<PDFPreviewProps> = ({
 	pdfBytes,
 	previewButtonText = 'Preview PDF',
 }) => {

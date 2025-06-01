@@ -71,6 +71,7 @@ export const Home: React.FC<HomeProps> = () => {
 			icon: splitIcon,
 			title: t('home.features.split.title'),
 			description: t('home.features.split.description'),
+			to: '/split',
 		},
 		{
 			icon: reorderIcon,

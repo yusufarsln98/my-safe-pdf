@@ -22,6 +22,7 @@ export const StyledSider = styled(Sider)<{ $collapsed?: boolean }>`
 	border-left: ${(props) => props.theme.colorBorder} 1px solid;
 	display: flex;
 	flex-direction: column;
+	overflow-y: auto;
 
 	.ant-layout-sider-zero-width-trigger {
 		top: 12px;
@@ -35,7 +36,7 @@ export const SidebarContent = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	padding: 16px;
+	padding: 8px;
 	flex: 1;
 `
 

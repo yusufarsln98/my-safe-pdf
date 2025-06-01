@@ -18,7 +18,6 @@ export default {
 	title: 'PDF/RangeGridItem',
 	component: RangeGridItem,
 	parameters: {
-		layout: 'centered',
 		docs: {
 			description: {
 				component:
@@ -31,7 +30,6 @@ export default {
 
 const InteractiveTemplate: StoryFn<StoryProps> = (args) => {
 	const [currentFile, setCurrentFile] = useState<SortableItem>(args.file)
-
 	const uploadProps: UploadProps = {
 		accept: '.pdf',
 		beforeUpload: (file) => {
@@ -64,6 +62,8 @@ const InteractiveTemplate: StoryFn<StoryProps> = (args) => {
 				<RangeGridItem
 					{...args}
 					file={currentFile}
+					startingPage={1}
+					endingPage={1}
 				/>
 			)}
 			<FloatingUploadButton
@@ -81,8 +81,6 @@ Interactive.args = {}
 
 export const Default = Interactive.bind({})
 Default.args = {
-	startingPage: 1,
-	endingPage: 3,
 	showDeleteButton: true,
 	index: 0,
 	onRemove: (index) => console.log('Remove clicked for index:', index),
