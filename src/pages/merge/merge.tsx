@@ -1,9 +1,11 @@
-import React from 'react'
-import { Alert, Layout, Button, Typography } from 'antd'
+import React, { useState } from 'react'
+import { Alert, Layout, Button, Typography, message } from 'antd'
 import { usePdfFiles } from './hooks/usePdfFiles'
 import { EmptyState } from './components/EmptyState'
 import { FloatingUploadButton } from './components/FloatingUploadButton'
 import { GridSortablePdfList } from './components/GridSortablePdfList'
+import { mergePDFs, downloadPDF } from './utils/pdfUtils'
+import { MergeSuccess } from './components/MergeSuccess'
 import styled from 'styled-components'
 
 const { Content, Sider } = Layout
@@ -15,7 +17,7 @@ const Container = styled(Layout)`
 const StyledContent = styled(Content)`
 	display: flex;
 	flex-direction: column;
-	padding: 16px;
+	padding: 24px;
 	flex: 1;
 `
 
@@ -42,6 +44,48 @@ const SidebarTitleContainer = styled.div`
 
 export const Merge: React.FC = () => {
 	const { fileList, uploadProps, removeFile, setFileList } = usePdfFiles()
+	const [mergedPdfBytes, setMergedPdfBytes] = useState<Uint8Array | null>(null)
+
+	const handleMerge = async () => {
+		try {
+			message.loading({
+				content: 'PDF dosyaları birleştiriliyor...',
+				key: 'merging',
+			})
+			const pdfBytes = await mergePDFs(fileList)
+			setMergedPdfBytes(pdfBytes)
+			message.success({
+				content: 'PDF dosyaları başarıyla birleştirildi!',
+				key: 'merging',
+			})
+		} catch (error) {
+			console.error('Error merging PDFs:', error)
+			message.error({
+				content: 'PDF dosyaları birleştirilirken bir hata oluştu.',
+				key: 'merging',
+			})
+		}
+	}
+
+	const handleDownload = () => {
+		if (mergedPdfBytes) {
+			downloadPDF(mergedPdfBytes, 'birlestirilmis.pdf')
+		}
+	}
+
+	const handleBack = () => {
+		setMergedPdfBytes(null)
+	}
+
+	if (mergedPdfBytes) {
+		return (
+			<MergeSuccess
+				onBack={handleBack}
+				onDownload={handleDownload}
+				mergedPdfBytes={mergedPdfBytes}
+			/>
+		)
+	}
 
 	return (
 		<Container>
@@ -62,7 +106,8 @@ export const Merge: React.FC = () => {
 							type='primary'
 							size='large'
 							disabled={fileList.length < 2}
-							style={{ width: '100%', marginTop: 'auto' }}
+							style={{ width: '100%', marginTop: '24px' }}
+							onClick={handleMerge}
 						>
 							PDF'leri Birleştir
 						</Button>

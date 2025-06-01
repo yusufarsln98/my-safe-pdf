@@ -113,7 +113,7 @@ export const GridSortablePdfList: React.FC<GridSortablePdfListProps> = ({
 		<Flex
 			vertical
 			gap={24}
-			style={{ width: '100%' }}
+			style={{ width: '100%', height: '100%' }}
 		>
 			<GlobalStyle />
 			<ReactSortable
