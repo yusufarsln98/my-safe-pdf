@@ -1,5 +1,5 @@
-import { DeleteOutlined } from '@ant-design/icons'
-import { Flex } from 'antd'
+import { DeleteOutlined, RotateRightOutlined } from '@ant-design/icons'
+import { Flex, App } from 'antd'
 import type { UploadFile } from 'antd'
 import React, { useMemo, useState } from 'react'
 import { ReactSortable } from 'react-sortablejs'
@@ -10,9 +10,16 @@ import {
 	FileInfo,
 	FileName,
 	FileSize,
-	DeleteButton,
+	ActionButton,
+	ActionButtons,
 } from './GridSortablePdfList.styles'
 import { PDFThumbnail } from '../../../ui/pdf-thumbnail'
+import { rotatePDF } from '../../../../utils/pdf'
+
+interface CustomFile extends File {
+	uid: string
+	lastModifiedDate: Date
+}
 
 export interface GridSortablePdfListProps {
 	files: UploadFile[]
@@ -37,6 +44,8 @@ interface GridItemProps {
 	file: SortableItem
 	index: number
 	onRemove: (index: number) => void
+	onFilesChange: (files: UploadFile[]) => void
+	files: UploadFile[]
 	showDeleteButton?: boolean
 	renderCustomFileInfo?: (file: UploadFile) => React.ReactNode
 }
@@ -60,6 +69,8 @@ const GridItemComponent = React.memo(
 		file,
 		index,
 		onRemove,
+		onFilesChange,
+		files,
 		showDeleteButton = true,
 		renderCustomFileInfo,
 	}: GridItemProps) => {
@@ -67,6 +78,8 @@ const GridItemComponent = React.memo(
 			fileName: file.name,
 			fileSize: formatFileSize(file.size || 0),
 		})
+		const [isRotating, setIsRotating] = useState(false)
+		const { message: messageApi } = App.useApp()
 
 		const pdfFile = useMemo(() => {
 			// First try to get the actual File object
@@ -91,18 +104,68 @@ const GridItemComponent = React.memo(
 			setPdfInfo((prev) => ({ ...prev, numPages }))
 		}
 
+		const handleRotate = async () => {
+			try {
+				setIsRotating(true)
+				messageApi.loading({
+					content: 'Rotating PDF...',
+					key: 'rotating',
+				})
+				const rotatedPdfBytes = await rotatePDF({ file })
+
+				// Create a new File object from the rotated PDF bytes
+				const rotatedFile = new File([rotatedPdfBytes], file.name, {
+					type: 'application/pdf',
+				}) as CustomFile
+				rotatedFile.uid = `${file.uid}_${Date.now()}`
+
+				// Update the file object with the rotated PDF
+				const newFile: UploadFile = {
+					...file,
+					originFileObj: rotatedFile,
+					uid: rotatedFile.uid,
+					lastModified: Date.now(),
+				}
+
+				// Replace the file in the parent component
+				onFilesChange(
+					files.map((f: UploadFile, i: number) => (i === index ? newFile : f))
+				)
+
+				messageApi.success({
+					content: 'PDF rotated successfully!',
+					key: 'rotating',
+				})
+			} catch (error) {
+				console.error('Error rotating PDF:', error)
+				messageApi.error({
+					content: 'Failed to rotate PDF.',
+					key: 'rotating',
+				})
+			} finally {
+				setIsRotating(false)
+			}
+		}
+
 		return (
 			<StyledGridItem>
-				{showDeleteButton && (
-					<DeleteButton
-						className='delete-button ignoreDrag'
+				<ActionButtons className='action-buttons ignoreDrag'>
+					{showDeleteButton && (
+						<ActionButton
+							type='text'
+							size='small'
+							danger
+							icon={<DeleteOutlined />}
+							onClick={() => onRemove(index)}
+						/>
+					)}
+					<ActionButton
 						type='text'
 						size='small'
-						danger
-						icon={<DeleteOutlined />}
-						onClick={() => onRemove(index)}
+						icon={<RotateRightOutlined spin={isRotating} />}
+						onClick={handleRotate}
 					/>
-				)}
+				</ActionButtons>
 				<ThumbnailWrapper>
 					<PDFThumbnail
 						file={pdfFile}
@@ -150,10 +213,10 @@ export const GridSortablePdfList: React.FC<GridSortablePdfListProps> = ({
 	if (files.length === 0) return null
 
 	const handleSortableChange = (newState: SortableItem[]) => {
-		const newFiles = newState.map((item) => {
-			const uploadFile: UploadFile = Object.assign({}, item)
-			return uploadFile
-		})
+		const newFiles: UploadFile[] = newState.map((item) => ({
+			...item,
+			uid: item.id,
+		}))
 		onFilesChange(newFiles)
 	}
 
@@ -187,6 +250,8 @@ export const GridSortablePdfList: React.FC<GridSortablePdfListProps> = ({
 						file={file}
 						index={index}
 						onRemove={onRemoveFile}
+						onFilesChange={onFilesChange}
+						files={files}
 						showDeleteButton={showDeleteButton}
 						renderCustomFileInfo={renderCustomFileInfo}
 					/>

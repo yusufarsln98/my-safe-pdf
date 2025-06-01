@@ -1,5 +1,5 @@
 import { UploadFile } from 'antd'
-import { PDFDocument, PDFPage } from 'pdf-lib'
+import { PDFDocument, PDFPage, degrees } from 'pdf-lib'
 
 export class PDFError extends Error {
 	constructor(
@@ -109,5 +109,40 @@ export const downloadPDF = ({
 			'Error downloading PDF',
 			error instanceof Error ? error : undefined
 		)
+	}
+}
+
+export const rotatePDF = async ({
+	file,
+}: {
+	file: UploadFile
+}): Promise<Uint8Array> => {
+	try {
+		// Get the PDF file as an ArrayBuffer
+		let pdfBytes: ArrayBuffer
+		if (file.originFileObj) {
+			pdfBytes = await file.originFileObj.arrayBuffer()
+		} else if (file.url) {
+			const response = await fetch(file.url)
+			pdfBytes = await response.arrayBuffer()
+		} else {
+			throw new Error('Invalid file source')
+		}
+
+		// Load the PDF document
+		const pdfDoc = await PDFDocument.load(pdfBytes)
+		const pages = pdfDoc.getPages()
+
+		// Rotate each page by 90 degrees clockwise
+		pages.forEach((page) => {
+			const currentRotation = page.getRotation().angle
+			page.setRotation(degrees((currentRotation + 90) % 360))
+		})
+
+		// Save the modified document
+		return await pdfDoc.save()
+	} catch (error) {
+		console.error('Error rotating PDF:', error)
+		throw error
 	}
 }

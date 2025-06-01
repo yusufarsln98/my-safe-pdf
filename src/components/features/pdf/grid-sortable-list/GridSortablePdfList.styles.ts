@@ -33,6 +33,17 @@ export const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     }
 `
 
+export const ActionButtons = styled.div`
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: flex;
+	gap: 4px;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	z-index: 2;
+`
+
 export const GridItem = styled.div`
 	position: relative;
 	background: ${(props) => props.theme.colorBgContainer};
@@ -49,7 +60,7 @@ export const GridItem = styled.div`
 		border-color: ${(props) => props.theme.colorPrimary};
 		box-shadow: ${(props) => props.theme.boxShadowTertiary};
 
-		.delete-button {
+		.action-buttons {
 			opacity: 1;
 		}
 	}
@@ -98,15 +109,9 @@ export const FileSize = styled.div`
 	font-size: 12px;
 `
 
-export const DeleteButton = styled(Button)`
-	position: absolute;
-	top: 8px;
-	right: 8px;
-	opacity: 0;
-	transition: opacity 0.2s ease;
+export const ActionButton = styled(Button)`
 	background: ${(props) => props.theme.colorBgContainer};
 	box-shadow: ${(props) => props.theme.boxShadow};
-	z-index: 2;
 
 	&:hover {
 		background: ${(props) => props.theme.colorBgContainer} !important;

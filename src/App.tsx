@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider } from '@tanstack/react-router'
+import { App as AntdApp } from 'antd'
 import React from 'react'
 import { auth } from './lib/utils/auth'
 import type { MainRouter } from './main'
@@ -14,12 +15,14 @@ const App: React.FC<AppProps> = ({ router }) => {
 		<QueryClientProvider client={queryClient}>
 			<ThemeProvider>
 				<ThemeConfigProvider>
-					<RouterProvider
-						router={router}
-						context={{
-							auth: auth,
-						}}
-					/>
+					<AntdApp>
+						<RouterProvider
+							router={router}
+							context={{
+								auth: auth,
+							}}
+						/>
+					</AntdApp>
 				</ThemeConfigProvider>
 			</ThemeProvider>
 		</QueryClientProvider>
