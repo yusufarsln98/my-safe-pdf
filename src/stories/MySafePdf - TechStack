@@ -1,0 +1,67 @@
+---
+title: Local PDF Tools – Tech Stack Overview
+description: Fully offline PDF & image processing web app built with React, Vite, and pdf-lib
+---
+
+# 🧱 Tech Stack Overview – Local PDF Tools
+
+A privacy-focused, local-first PDF and image manipulation web app. No file uploads, no backend — everything runs 100% in the browser.
+
+---
+
+## 🧪 Stack Summary
+
+| Tool / Library       | Purpose                                               |
+|----------------------|--------------------------------------------------------|
+| **React**            | UI development using component-based architecture     |
+| **Vite**             | Fast local dev server and build system                |
+| **TanStack Router**  | Lightweight and modern file-based routing             |
+| **Ant Design (antd)**| UI components (modals, file upload, layout, etc.)     |
+| **pdf-lib**          | Core PDF manipulation library (merge, split, rotate)  |
+| **file-saver**       | Downloading PDF blobs via browser                     |
+| **html2canvas** _(opt)_| For image previews and canvas fallback            |
+| **PWA (optional)**   | Add-to-home-screen and offline capabilities           |
+
+---
+
+## 🎯 Core Functional Modules
+
+### 📥 File Handling
+- Support drag & drop and file selection for:
+  - PDF files
+  - Image files (JPG, PNG)
+
+### 🔧 PDF Processing (with `pdf-lib`)
+- Merge multiple PDFs
+- Split pages (by range)
+- Reorder pages via UI
+- Delete or rotate selected pages
+- Insert image(s) as PDF page(s)
+
+### 🖼️ Image to PDF Conversion
+- Embed JPG/PNG as full-page PDFs
+- Allow reordering
+- Optional: scaling, margin, page size config
+
+---
+
+## 🌟 Optional Enhancements
+
+- **Page preview UI** with thumbnails (canvas or PDF render)
+- **Dark mode** toggle (theming with Tailwind or AntD token config)
+- **Multilingual support** (i18n routing or simple JSON translation layer)
+- **PDF Metadata editor** (edit title, author, subject, etc.)
+- **Passworded PDF support** (unlock via user input)
+- **PWA**: installable, offline-ready experience
+
+---
+
+## 🧰 Developer Notes
+
+- Avoid any server-side code to preserve full local execution
+- Use `ArrayBuffer` and `Blob` APIs for all file handling
+- Use `pdf-lib`'s image embedding methods:
+  ```ts
+  const image = await pdfDoc.embedJpg(bytes);
+  const page = pdfDoc.addPage([image.width, image.height]);
+  page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
