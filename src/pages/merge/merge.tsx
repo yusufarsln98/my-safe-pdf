@@ -1,12 +1,11 @@
 import { Alert, Typography, Button, message } from 'antd'
 import React, { useState } from 'react'
-import { GridSortablePdfList } from '../../components/features/pdf/grid-sortable-list'
-import { MergeSuccess } from '../../components/features/pdf/merge-success'
-import { EmptyState } from '../../components/ui/empty-state'
-import { FloatingUploadButton } from '../../components/ui/floating-upload-button'
-import { usePdfFiles } from '../../hooks/pdf'
-import { PageLayout, SidebarLayout } from '../../layout/page-layout'
-import { mergePDFs, downloadPDF } from '../../utils/pdf'
+import { GridSortablePdfList, MergeSuccess } from '@/components/features/pdf'
+import { EmptyState } from '@/components/ui/empty-state'
+import { FloatingUploadButton } from '@/components/ui/floating-upload-button'
+import { usePdfFiles } from '@/hooks/pdf'
+import { PageLayout, SidebarLayout } from '@/layout/page-layout'
+import { mergePDFs, downloadPDF } from '@/utils/pdf'
 
 const { Title } = Typography
 

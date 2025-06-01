@@ -33,6 +33,7 @@ export interface PDFThumbnailProps {
 	onLoadError?: (error: Error) => void
 	loadingText?: string
 	errorText?: string
+	pageNumber?: number
 }
 
 const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({
@@ -43,6 +44,7 @@ const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({
 	onLoadError,
 	loadingText = 'Loading...',
 	errorText = 'Failed to load PDF',
+	pageNumber = 1,
 }) => {
 	const [fileData, setFileData] = useState<ArrayBuffer | string | null>(null)
 	const [error, setError] = useState<string | null>(null)
@@ -88,7 +90,7 @@ const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({
 					onLoadSuccess={onLoadSuccess}
 				>
 					<Page
-						pageNumber={1}
+						pageNumber={pageNumber}
 						width={width}
 						height={height}
 						renderAnnotationLayer={false}

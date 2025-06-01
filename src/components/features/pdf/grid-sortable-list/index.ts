@@ -1,2 +1,1 @@
-export { GridSortablePdfList } from './GridSortablePdfList'
-export type { GridSortablePdfListProps } from './GridSortablePdfList'
+export * from './grid-sortable-pdf-list'

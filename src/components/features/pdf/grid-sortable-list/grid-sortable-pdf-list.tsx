@@ -12,7 +12,7 @@ import {
 	FileSize,
 	ActionButton,
 	ActionButtons,
-} from './GridSortablePdfList.styles'
+} from './grid-sortable-pdf-list.styles'
 import { PDFThumbnail } from '../../../ui/pdf-thumbnail'
 import { rotatePDF } from '../../../../utils/pdf'
 
