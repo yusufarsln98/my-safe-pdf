@@ -1,5 +1,5 @@
 import { DeleteOutlined, RotateRightOutlined } from '@ant-design/icons'
-import { App } from 'antd'
+import { App, Tooltip } from 'antd'
 import type { UploadFile } from 'antd'
 import React, { useMemo, useState } from 'react'
 import {
@@ -11,10 +11,10 @@ import {
 	ActionButton,
 	ActionButtons,
 } from '../grid-sortable-pdf-list.styles'
-import { PDFThumbnail } from '@/components/ui/pdf-thumbnail'
-import { rotatePDF } from '@/utils/pdf'
 import type { CustomFile, PDFInfo, SortableItem } from '../types'
 import { formatFileSize } from '../utils'
+import { PDFThumbnail } from '@/components/ui/pdf-thumbnail'
+import { rotatePDF } from '@/utils/pdf'
 
 interface GridItemProps {
 	file: SortableItem
@@ -113,20 +113,25 @@ export const GridItem = React.memo(
 			<StyledGridItem>
 				<ActionButtons className='action-buttons ignoreDrag'>
 					{showDeleteButton && (
-						<ActionButton
-							type='text'
-							size='small'
-							danger
-							icon={<DeleteOutlined />}
-							onClick={() => onRemove(index)}
-						/>
+						<Tooltip title='Delete'>
+							<ActionButton
+								variant='filled'
+								color='red'
+								size='small'
+								icon={<DeleteOutlined />}
+								onClick={() => onRemove(index)}
+							/>
+						</Tooltip>
 					)}
-					<ActionButton
-						type='text'
-						size='small'
-						icon={<RotateRightOutlined spin={isRotating} />}
-						onClick={handleRotate}
-					/>
+					<Tooltip title='Rotate'>
+						<ActionButton
+							variant='filled'
+							color='blue'
+							size='small'
+							icon={<RotateRightOutlined spin={isRotating} />}
+							onClick={handleRotate}
+						/>
+					</Tooltip>
 				</ActionButtons>
 				<ThumbnailWrapper>
 					<PDFThumbnail

@@ -36,7 +36,7 @@ const MENU_ITEMS: {
 	},
 	{
 		key: 'merge',
-		path: '/merge/',
+		path: '/merge',
 		label: 'Merge',
 	},
 ]
@@ -52,6 +52,7 @@ export const AppHeader: React.FC = () => {
 				to={item.path}
 				activeProps={{ className: 'active-link' }}
 				activeOptions={{ exact: true }}
+				style={{ fontWeight: 500 }}
 			>
 				{item.label}
 			</Link>
