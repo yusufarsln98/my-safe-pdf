@@ -17,7 +17,7 @@ export const StyledContent = styled(Content)`
 `
 
 export const StyledSider = styled(Sider)<{ $collapsed?: boolean }>`
-	height: ${(props) => (props.$collapsed ? '0' : 'calc(100vh - 64px)')};
+	min-height: ${(props) => (props.$collapsed ? '0' : 'calc(100vh - 64px)')};
 	background-color: ${(props) => props.theme.colorBgContainer};
 	border-left: ${(props) => props.theme.colorBorder} 1px solid;
 	display: flex;
