@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { Flex, Typography, Row, Col, Card } from 'antd'
+import { Flex, Typography, Row, Col, Card, Alert } from 'antd'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import mergeIcon from '@/assets/icons/merge.svg'
@@ -109,6 +109,11 @@ export const Home: React.FC<HomeProps> = () => {
 				>
 					{t('home.description')}
 				</Paragraph>
+				<Alert
+					message='The application is work on the client totally. Therefore, some of the PDF files especially with the complicated forms may not be able to be processed correctly. Do not forget to check the result.'
+					type='info'
+					showIcon={true}
+				/>
 			</Flex>
 
 			<Row
