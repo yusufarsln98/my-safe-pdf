@@ -1,6 +1,6 @@
 {
 	"home": {
-		"title": "Secure, Offline, and Free PDF Tools",
+		"title": "Secure, Open Source, and Free PDF Tools",
 		"description": "Process all your PDFs directly in your browser, completely offline and secure. Your files are never uploaded to our servers. Core features: merge PDFs, split PDFs, edit pages, delete pages, and rotate pages. Easy drag-and-drop interface and 100% FREE!",
 		"alert": "The application runs entirely on the client side. Therefore, some PDF files—especially those with complex forms—may not be processed correctly. Please remember to review the output.",
 		"features": {
