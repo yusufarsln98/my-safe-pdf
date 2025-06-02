@@ -77,21 +77,7 @@ export const Home: React.FC<HomeProps> = () => {
 			icon: reorderIcon,
 			title: t('home.features.reorder.title'),
 			description: t('home.features.reorder.description'),
-		},
-		{
-			icon: '/placeholder.svg',
-			title: t('home.features.delete.title'),
-			description: t('home.features.delete.description'),
-		},
-		{
-			icon: '/placeholder.svg',
-			title: t('home.features.rotate.title'),
-			description: t('home.features.rotate.description'),
-		},
-		{
-			icon: '/placeholder.svg',
-			title: t('home.features.imagesToPdf.title'),
-			description: t('home.features.imagesToPdf.description'),
+			to: '/arrangement',
 		},
 	]
 
@@ -105,7 +91,14 @@ export const Home: React.FC<HomeProps> = () => {
 				vertical
 				align='center'
 			>
-				<Title level={1}>{t('home.title')}</Title>
+				<Title
+					level={1}
+					style={{
+						fontWeight: 700,
+					}}
+				>
+					{t('home.title')}
+				</Title>
 				<Paragraph
 					type='secondary'
 					style={{

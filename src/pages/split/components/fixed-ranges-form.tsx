@@ -79,6 +79,7 @@ export const FixedRangesForm: React.FC<FixedRangesFormProps> = ({
 				]}
 			>
 				<InputNumber
+					autoFocus={true}
 					min={1}
 					max={totalPages}
 					style={{ width: '100%' }}

@@ -13,15 +13,7 @@
 			},
 			"reorder": {
 				"title": "Sayfa Düzeni",
-				"description": "Sürükle-bırak ile PDF sayfalarının sırasını değiştirebilirsin."
-			},
-			"delete": {
-				"title": "Sayfa Silme",
-				"description": "PDF'den seçtiğin sayfaları kolayca silebilirsin."
-			},
-			"rotate": {
-				"title": "Sayfa Döndürme",
-				"description": "Seçilen sayfaları 90 derece adımlarla döndürebilirsin."
+				"description": "Sürükle-bırak ile PDF sayfalarının sırasını değiştirebilirsin, sayfaları silebilir ve döndürebilirsin."
 			},
 			"imagesToPdf": {
 				"title": "Resimden PDF",

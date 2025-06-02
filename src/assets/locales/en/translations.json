@@ -13,15 +13,7 @@
 			},
 			"reorder": {
 				"title": "Page Reorder",
-				"description": "Rearrange PDF pages with simple drag-and-drop."
-			},
-			"delete": {
-				"title": "Delete Pages",
-				"description": "Easily remove selected pages from your PDF."
-			},
-			"rotate": {
-				"title": "Rotate Pages",
-				"description": "Rotate selected pages in 90-degree steps."
+				"description": "Rearrange PDF pages with simple drag-and-drop, delete pages, and rotate pages."
 			},
 			"imagesToPdf": {
 				"title": "Images to PDF",

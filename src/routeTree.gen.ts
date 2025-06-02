@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as SplitIndexImport } from './routes/split/index'
 import { Route as MergeIndexImport } from './routes/merge/index'
+import { Route as ArrangementIndexImport } from './routes/arrangement/index'
 
 // Create/Update Routes
 
@@ -35,6 +36,12 @@ const MergeIndexRoute = MergeIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ArrangementIndexRoute = ArrangementIndexImport.update({
+  id: '/arrangement/',
+  path: '/arrangement/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -44,6 +51,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/arrangement/': {
+      id: '/arrangement/'
+      path: '/arrangement'
+      fullPath: '/arrangement'
+      preLoaderRoute: typeof ArrangementIndexImport
       parentRoute: typeof rootRoute
     }
     '/merge/': {
@@ -67,12 +81,14 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/arrangement': typeof ArrangementIndexRoute
   '/merge': typeof MergeIndexRoute
   '/split': typeof SplitIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/arrangement': typeof ArrangementIndexRoute
   '/merge': typeof MergeIndexRoute
   '/split': typeof SplitIndexRoute
 }
@@ -80,27 +96,30 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/arrangement/': typeof ArrangementIndexRoute
   '/merge/': typeof MergeIndexRoute
   '/split/': typeof SplitIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/merge' | '/split'
+  fullPaths: '/' | '/arrangement' | '/merge' | '/split'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/merge' | '/split'
-  id: '__root__' | '/' | '/merge/' | '/split/'
+  to: '/' | '/arrangement' | '/merge' | '/split'
+  id: '__root__' | '/' | '/arrangement/' | '/merge/' | '/split/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ArrangementIndexRoute: typeof ArrangementIndexRoute
   MergeIndexRoute: typeof MergeIndexRoute
   SplitIndexRoute: typeof SplitIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ArrangementIndexRoute: ArrangementIndexRoute,
   MergeIndexRoute: MergeIndexRoute,
   SplitIndexRoute: SplitIndexRoute,
 }
@@ -116,12 +135,16 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/arrangement/",
         "/merge/",
         "/split/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/arrangement/": {
+      "filePath": "arrangement/index.tsx"
     },
     "/merge/": {
       "filePath": "merge/index.tsx"

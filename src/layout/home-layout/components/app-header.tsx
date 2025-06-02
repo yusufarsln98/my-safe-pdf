@@ -44,6 +44,11 @@ const MENU_ITEMS: {
 		path: '/split',
 		label: 'Split PDF',
 	},
+	{
+		key: 'arrangement',
+		path: '/arrangement',
+		label: 'Arrange PDFs',
+	},
 ]
 
 export const AppHeader: React.FC = () => {

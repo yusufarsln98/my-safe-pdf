@@ -1,6 +1,5 @@
 import { Form, Segmented, Typography } from 'antd'
 import React, { useState } from 'react'
-import { SidebarContent, SidebarLayout } from '@/layout/page-layout'
 import { CustomRangesForm } from './custom-ranges-form'
 import { FixedRangesForm } from './fixed-ranges-form'
 import {
@@ -9,6 +8,7 @@ import {
 	SplitMode,
 	SplitSiderProps,
 } from '../types'
+import { SidebarContent, SidebarLayout } from '@/layout/page-layout'
 
 const { Title, Text } = Typography
 
