@@ -6,6 +6,7 @@ import logoDark from '@/assets/logo-dark.png'
 import logo from '@/assets/logo.png'
 import { LanguageSwitcher } from '@/components/features/language-switcher/language-switcher'
 import { ThemeSwitcher, useTheme } from '@/components/features/theme'
+import { useTranslation } from 'react-i18next'
 
 const { Header } = Layout
 
@@ -24,35 +25,37 @@ const StyledHeader = styled(Header)`
 `
 
 // Define menu items configuration
-const MENU_ITEMS: {
-	key: string
-	path: string // TODO: make this type safe
-	label: string
-}[] = [
-	{
-		key: 'home',
-		path: '/',
-		label: 'Home',
-	},
-	{
-		key: 'merge',
-		path: '/merge',
-		label: 'Merge PDFs',
-	},
-	{
-		key: 'split',
-		path: '/split',
-		label: 'Split PDF',
-	},
-	{
-		key: 'arrangement',
-		path: '/arrangement',
-		label: 'Arrange PDFs',
-	},
-]
 
 export const AppHeader: React.FC = () => {
 	const { currentTheme } = useTheme()
+	const { t } = useTranslation()
+
+	const MENU_ITEMS: {
+		key: string
+		path: string
+		label: string
+	}[] = [
+		{
+			key: 'home',
+			path: '/',
+			label: t('menu.home'),
+		},
+		{
+			key: 'merge',
+			path: '/merge',
+			label: t('menu.merge'),
+		},
+		{
+			key: 'split',
+			path: '/split',
+			label: t('menu.split'),
+		},
+		{
+			key: 'arrangement',
+			path: '/arrangement',
+			label: t('menu.arrangement'),
+		},
+	]
 
 	// Convert menu items to Ant Design format with active state
 	const menuItems = MENU_ITEMS.map((item) => ({

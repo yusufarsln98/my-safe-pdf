@@ -8,6 +8,7 @@ import { usePdfFiles } from '@/hooks/pdf'
 import { usePdfPageCount } from '@/hooks/usePdfPageCount'
 import { PageLayout } from '@/layout/page-layout'
 import { splitPDF, downloadSplitPDFs } from '@/utils/pdf/splitUtils'
+import { useTranslation } from 'react-i18next'
 
 interface PageRange {
 	from: number
@@ -25,6 +26,7 @@ export const Split: React.FC = () => {
 		maxFiles: 1,
 	})
 	const totalPages = usePdfPageCount(fileList[0])
+	const { t } = useTranslation()
 
 	const onRangesChange = (values: RangeFormValue) => {
 		setRanges(values.ranges)
@@ -43,7 +45,7 @@ export const Split: React.FC = () => {
 	const handleSplit = async () => {
 		try {
 			message.loading({
-				content: 'Splitting PDF file...',
+				content: t('messages.splitting'),
 				key: 'splitting',
 			})
 			const pdfBytesList = await splitPDF({
@@ -51,20 +53,20 @@ export const Split: React.FC = () => {
 				ranges,
 				onProgress: (progress) => {
 					message.loading({
-						content: `Splitting PDF file... ${Math.round(progress * 100)}%`,
+						content: `${t('messages.splitting')} ${Math.round(progress * 100)}%`,
 						key: 'splitting',
 					})
 				},
 			})
 			setSplitPdfBytes(pdfBytesList)
 			message.success({
-				content: 'PDF file split successfully!',
+				content: t('messages.splitSuccess'),
 				key: 'splitting',
 			})
 		} catch (error) {
 			console.error('Error splitting PDF:', error)
 			message.error({
-				content: 'Error splitting PDF file.',
+				content: t('messages.splitError'),
 				key: 'splitting',
 			})
 		}
@@ -91,12 +93,10 @@ export const Split: React.FC = () => {
 				onBack={handleBack}
 				onDownload={handleDownload}
 				pdfBytes={splitPdfBytes[0]}
-				title='PDF split successfully!'
+				title={t('messages.splitSuccess')}
 				hidePreview={true}
 				downloadButtonText={
-					splitPdfBytes.length > 1
-						? 'Download ZIP with split PDFs'
-						: 'Download split PDF'
+					splitPdfBytes.length > 1 ? t('downloadZip') : t('downloadSplitPDF')
 				}
 			/>
 		)
@@ -117,8 +117,8 @@ export const Split: React.FC = () => {
 			{fileList.length === 0 ? (
 				<EmptyState
 					uploadProps={uploadProps}
-					title='Split PDF'
-					description='Split a PDF file into multiple files. Select a PDF file to get started.'
+					title={t('split.title')}
+					description={t('split.description')}
 					uploadHint='You can select single file'
 				/>
 			) : (
@@ -155,7 +155,7 @@ export const Split: React.FC = () => {
 						style={{ width: '100%', marginTop: 'auto' }}
 						onClick={handleSplit}
 					>
-						Split PDF
+						{t('buttons.splitPdf')}
 					</Button>
 				</div>
 			)}

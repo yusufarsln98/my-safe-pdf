@@ -8,27 +8,29 @@ import { FloatingUploadButton } from '@/components/ui/floating-upload-button'
 import { usePdfFiles } from '@/hooks/pdf'
 import { PageLayout } from '@/layout/page-layout'
 import { mergePDFs, downloadPDF } from '@/utils/pdf'
+import { useTranslation } from 'react-i18next'
 
 export const Merge: React.FC = () => {
 	const { fileList, uploadProps, removeFile, setFileList } = usePdfFiles()
 	const [mergedPdfBytes, setMergedPdfBytes] = useState<Uint8Array | null>(null)
+	const { t } = useTranslation()
 
 	const handleMerge = async () => {
 		try {
 			message.loading({
-				content: 'Merging PDF files...',
+				content: t('messages.merging'),
 				key: 'merging',
 			})
 			const pdfBytes = await mergePDFs({ files: fileList })
 			setMergedPdfBytes(pdfBytes)
 			message.success({
-				content: 'PDF files merged successfully!',
+				content: t('messages.mergeSuccess'),
 				key: 'merging',
 			})
 		} catch (error) {
 			console.error('Error merging PDFs:', error)
 			message.error({
-				content: 'Error merging PDF files.',
+				content: t('messages.mergeError'),
 				key: 'merging',
 			})
 		}
@@ -54,8 +56,8 @@ export const Merge: React.FC = () => {
 				onBack={handleBack}
 				onDownload={handleDownload}
 				pdfBytes={mergedPdfBytes}
-				title='PDF files merged successfully!'
-				downloadButtonText='Download Merged PDF'
+				title={t('messages.mergeSuccess')}
+				downloadButtonText={t('downloadMergedPDF')}
 				hidePreview={false}
 			/>
 		)
@@ -70,8 +72,8 @@ export const Merge: React.FC = () => {
 			{fileList.length === 0 ? (
 				<EmptyState
 					uploadProps={uploadProps}
-					title='Merge PDFs'
-					description='Merge multiple PDF files into one. Drag and drop or select files, reorder them, and merge.'
+					title={t('merge.title')}
+					description={t('merge.description')}
 				/>
 			) : (
 				<>
@@ -87,7 +89,7 @@ export const Merge: React.FC = () => {
 						style={{ width: '100%', marginTop: '24px' }}
 						onClick={handleMerge}
 					>
-						Merge PDFs
+						{t('buttons.mergePdf')}
 					</Button>
 				</>
 			)}
@@ -95,7 +97,7 @@ export const Merge: React.FC = () => {
 				<FloatingUploadButton
 					uploadProps={uploadProps}
 					badgeCount={fileList.length}
-					tooltipText='Add more files'
+					tooltipText={t('addMoreFiles')}
 				/>
 			)}
 		</PageLayout>

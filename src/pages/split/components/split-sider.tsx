@@ -5,6 +5,7 @@ import { CustomRangesForm } from './custom-ranges-form'
 import { FixedRangesForm } from './fixed-ranges-form'
 import { FixedSplitValue, RangeFormValue, SplitMode } from '../types'
 import { SidebarContent, SidebarLayout } from '@/layout/page-layout'
+import { useTranslation } from 'react-i18next'
 
 const { Title, Text } = Typography
 
@@ -22,6 +23,7 @@ export const SplitSider: React.FC<SplitSiderProps> = ({
 	const [splitMode, setSplitMode] = useState<SplitMode>('custom')
 	const [form] = Form.useForm<RangeFormValue>()
 	const [fixedForm] = Form.useForm<FixedSplitValue>()
+	const { t } = useTranslation()
 
 	return (
 		<SidebarLayout
@@ -34,7 +36,7 @@ export const SplitSider: React.FC<SplitSiderProps> = ({
 						level={5}
 						style={{ margin: 0, padding: 0 }}
 					>
-						Split
+						{t('sider.split.title')}
 					</Title>
 					<Button
 						type='text'
@@ -46,12 +48,12 @@ export const SplitSider: React.FC<SplitSiderProps> = ({
 		>
 			<SidebarContent>
 				<div style={{ marginBottom: 24 }}>
-					<Text>Split mode:</Text>
+					<Text>{t('sider.split.splitMode')}</Text>
 					<Segmented
 						block
 						options={[
-							{ label: 'Custom Ranges', value: 'custom' },
-							{ label: 'Fixed Ranges', value: 'fixed' },
+							{ label: t('sider.split.customRanges'), value: 'custom' },
+							{ label: t('sider.split.fixedRanges'), value: 'fixed' },
 						]}
 						value={splitMode}
 						onChange={(value) => setSplitMode(value as SplitMode)}

@@ -6,11 +6,11 @@
 		"features": {
 			"merge": {
 				"title": "PDF Birleştir",
-				"description": "En kolay PDF birleştirici ile PDF'leri istediğin sırada birleştirebilirsin."
+				"description": "Birden fazla PDF dosyasını tek bir dosyada birleştirin. Dosyaları sürükleyip bırakın veya seçin, sıralayın ve birleştirin."
 			},
 			"split": {
 				"title": "PDF Ayır",
-				"description": "PDF dosyasını sayfa aralıklarına göre bölebilirsin (örn: 1-3, 5 gibi)."
+				"description": "Bir PDF dosyasını birden fazla dosyaya ayırın. Başlamak için bir PDF dosyası seçin."
 			},
 			"reorder": {
 				"title": "Sayfa Düzeni",
@@ -20,6 +20,75 @@
 				"title": "Resimden PDF",
 				"description": "JPG ve PNG dosyalarını tek bir PDF'e dönüştürebilirsin."
 			}
+		}
+	},
+	"menu": {
+		"home": "Ana Sayfa",
+		"merge": "PDF Birleştir",
+		"split": "PDF Ayır",
+		"arrangement": "PDF Sayfalarını Düzenle"
+	},
+	"merge": {
+		"title": "PDF Birleştir",
+		"description": "Birden fazla PDF dosyasını tek bir dosyada birleştirin. Dosyaları sürükleyip bırakın veya seçin, sıralayın ve birleştirin."
+	},
+	"split": {
+		"title": "PDF Ayır",
+		"description": "Bir PDF dosyasını birden fazla dosyaya ayırın. Başlamak için bir PDF dosyası seçin."
+	},
+	"arrangement": {
+		"title": "PDF Sayfalarını Düzenle",
+		"description": "PDF sayfalarını basit sürükle-bırak ile yeniden düzenleyin, sayfaları silin ve döndürün."
+	},
+	"messages": {
+		"merging": "PDF dosyaları birleştiriliyor...",
+		"mergeSuccess": "PDF dosyaları başarıyla birleştirildi!",
+		"mergeError": "PDF dosyaları birleştirilirken hata oluştu.",
+		"splitting": "PDF dosyası ayrılıyor...",
+		"splitSuccess": "PDF dosyası başarıyla ayrıldı!",
+		"splitError": "PDF dosyası ayrılırken hata oluştu.",
+		"processing": "PDF sayfaları işleniyor...",
+		"processingProgress": "PDF sayfaları işleniyor... {{progress}}%",
+		"processSuccess": "PDF sayfaları başarıyla işlendi!",
+		"processError": "PDF sayfaları işlenirken hata oluştu.",
+		"arrangeSuccess": "PDF sayfaları başarıyla düzenlendi!"
+	},
+	"buttons": {
+		"mergePdf": "PDF'leri Birleştir",
+		"splitPdf": "PDF'i Ayır",
+		"arrangePages": "Sayfaları Düzenle"
+	},
+	"uploadText": {
+		"default": "Yüklemek için tıklayın veya dosyaları sürükleyin",
+		"singleFile": "Tek bir dosya seçebilirsiniz",
+		"multipleFiles": "Birden fazla dosya seçebilirsiniz"
+	},
+	"downloadMergedPDF": "Birleştirilmiş PDF'i İndir",
+	"addMoreFiles": "Daha Fazla Dosya Ekle",
+	"downloadZip": "Bölünmüş PDF'lerle ZIP İndir",
+	"downloadSplitPDF": "Bölünmüş PDF'i İndir",
+	"downloadArrangedPDF": "Düzenlenmiş PDF'i İndir",
+	"sider": {
+		"merge": {
+			"title": "PDF Birleştir",
+			"info": "Birden fazla PDF dosyası seçmek için 'PDF dosyaları seç' düğmesine tekrar tıklayın. Birden fazla dosya seçmek için 'Ctrl' tuşunu basılı tutun."
+		},
+		"split": {
+			"title": "PDF Ayır",
+			"splitMode": "Ayırma modu:",
+			"customRanges": "Özel Aralıklar",
+			"fixedRanges": "Sabit Aralıklar"
+		},
+		"arrangement": {
+			"title": "PDF Sayfalarını Düzenle",
+			"dragDropTitle": "Sürükle ve Bırak Talimatları",
+			"dragDropInstructions": [
+				"Sayfaları yeniden sıralamak için sürükleyip bırakın",
+				"Bir sayfayı silmek için sil simgesine tıklayın",
+				"Değişiklikler \"Sayfaları Düzenle\" düğmesine tıkladığınızda uygulanacaktır"
+			],
+			"pageCountTitle": "Sayfa Sayısı",
+			"pageCountDescription": "Düzenlemeden önce tüm sayfaların istenen sırada olduğundan emin olun."
 		}
 	}
 }

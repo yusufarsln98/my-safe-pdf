@@ -2,6 +2,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Alert, Typography, Button, Flex } from 'antd'
 import React from 'react'
 import { SidebarLayout } from '@/layout/page-layout'
+import { useTranslation } from 'react-i18next'
 
 const { Title } = Typography
 
@@ -10,6 +11,8 @@ interface MergeSiderProps {
 }
 
 export const MergeSider: React.FC<MergeSiderProps> = ({ onBack }) => {
+	const { t } = useTranslation()
+
 	return (
 		<SidebarLayout
 			title={
@@ -21,7 +24,7 @@ export const MergeSider: React.FC<MergeSiderProps> = ({ onBack }) => {
 						level={5}
 						style={{ margin: 0, padding: 0 }}
 					>
-						Merge PDFs
+						{t('sider.merge.title')}
 					</Title>
 					<Button
 						type='text'
@@ -32,7 +35,7 @@ export const MergeSider: React.FC<MergeSiderProps> = ({ onBack }) => {
 			}
 		>
 			<Alert
-				message="Click 'Select PDF files' button again to select multiple PDF files. Hold 'Ctrl' key to select multiple files."
+				message={t('sider.merge.info')}
 				type='info'
 			/>
 		</SidebarLayout>

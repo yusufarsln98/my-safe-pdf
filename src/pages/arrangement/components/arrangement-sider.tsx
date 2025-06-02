@@ -2,6 +2,7 @@ import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Alert, Typography, Button, Flex } from 'antd'
 import React from 'react'
 import { SidebarLayout } from '@/layout/page-layout'
+import { useTranslation } from 'react-i18next'
 
 const { Title } = Typography
 
@@ -12,6 +13,8 @@ interface ArrangementSiderProps {
 export const ArrangementSider: React.FC<ArrangementSiderProps> = ({
 	onBack,
 }) => {
+	const { t } = useTranslation()
+
 	return (
 		<SidebarLayout
 			title={
@@ -23,7 +26,7 @@ export const ArrangementSider: React.FC<ArrangementSiderProps> = ({
 						level={5}
 						style={{ margin: 0, padding: 0 }}
 					>
-						Arrange PDF Pages
+						{t('sider.arrangement.title')}
 					</Title>
 					<Button
 						type='text'
@@ -34,21 +37,25 @@ export const ArrangementSider: React.FC<ArrangementSiderProps> = ({
 			}
 		>
 			<Alert
-				message='Drag and Drop Instructions'
+				message={t('sider.arrangement.dragDropTitle')}
 				description={
 					<>
-						• Drag and drop pages to reorder them
-						<br />
-						• Click the delete icon to remove a page
-						<br />• Changes will be applied when you click "Arrange Pages"
+						{t('sider.arrangement.dragDropInstructions', {
+							returnObjects: true,
+						}).map((instruction, index) => (
+							<React.Fragment key={index}>
+								• {instruction}
+								{index < 2 && <br />}
+							</React.Fragment>
+						))}
 					</>
 				}
 				type='info'
 				showIcon
 			/>
 			<Alert
-				message='Page Count'
-				description='Make sure all pages are in the desired order before arranging.'
+				message={t('sider.arrangement.pageCountTitle')}
+				description={t('sider.arrangement.pageCountDescription')}
 				type='warning'
 				showIcon
 				style={{ marginTop: '16px' }}

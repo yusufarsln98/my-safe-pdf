@@ -10,6 +10,7 @@ import { usePdfPageCount } from '@/hooks/usePdfPageCount'
 import { PageLayout } from '@/layout/page-layout'
 import { mergePDFs, downloadPDF } from '@/utils/pdf/mergeUtils'
 import { splitPDF } from '@/utils/pdf/splitUtils'
+import { useTranslation } from 'react-i18next'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ArrangeProps {}
@@ -24,13 +25,14 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 	const totalPages = usePdfPageCount(fileList[0])
 	const [splitPages, setSplitPages] = useState<Uint8Array[]>([])
 	const [splitFileList, setSplitFileList] = useState<UploadFile[]>([])
+	const { t } = useTranslation()
 
 	useEffect(() => {
 		const handleSplitToPages = async () => {
 			if (fileList.length > 0 && totalPages > 0) {
 				try {
 					message.loading({
-						content: 'Processing PDF pages...',
+						content: t('messages.processing'),
 						key: 'splitting',
 					})
 
@@ -45,7 +47,7 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 						ranges,
 						onProgress: (progress) => {
 							message.loading({
-								content: `Processing PDF pages... ${Math.round(progress * 100)}%`,
+								content: `${t('messages.processingProgress', { progress: Math.round(progress * 100) })}`,
 								key: 'splitting',
 							})
 						},
@@ -72,13 +74,13 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 
 					setSplitFileList(newFileList)
 					message.success({
-						content: 'PDF pages processed successfully!',
+						content: t('messages.processSuccess'),
 						key: 'splitting',
 					})
 				} catch (error) {
 					console.error('Error processing PDF:', error)
 					message.error({
-						content: 'Error processing PDF pages.',
+						content: t('messages.processError'),
 						key: 'splitting',
 					})
 				}
@@ -99,6 +101,12 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 		const newFileList = [...splitFileList]
 		newFileList.splice(index, 1)
 		setSplitFileList(newFileList)
+
+		// if no pages left, clear the file list
+		if (newSplitPages.length === 0) {
+			setSplitFileList([])
+			setFileList([])
+		}
 	}
 
 	const handleArrange = async () => {
@@ -178,9 +186,9 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 			{fileList.length === 0 ? (
 				<EmptyState
 					uploadProps={uploadProps}
-					title='Arrange PDF Pages'
-					description='Rearrange PDF pages with simple drag-and-drop, delete pages, and rotate pages.'
-					uploadHint='You can select single file'
+					title={t('arrangement.title')}
+					description={t('arrangement.description')}
+					uploadHint={t('uploadText.singleFile')}
 				/>
 			) : (
 				<div
@@ -207,7 +215,7 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 						disabled={splitFileList.length === 0}
 						onClick={handleArrange}
 					>
-						Arrange Pages
+						{t('buttons.arrangePages')}
 					</Button>
 				</div>
 			)}

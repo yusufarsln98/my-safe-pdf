@@ -5,7 +5,7 @@
 		"alert": "The application runs entirely on the client side. Therefore, some PDF files—especially those with complex forms—may not be processed correctly. Please remember to review the output.",
 		"features": {
 			"merge": {
-				"title": "Merge PDF",
+				"title": "Merge PDFs",
 				"description": "Combine multiple PDFs in any order with our easy-to-use PDF merger."
 			},
 			"split": {
@@ -20,6 +20,75 @@
 				"title": "Images to PDF",
 				"description": "Convert JPG and PNG files into a single PDF."
 			}
+		}
+	},
+	"menu": {
+		"home": "Home",
+		"merge": "Merge PDFs",
+		"split": "Split PDF",
+		"arrangement": "Arrange PDFs"
+	},
+	"merge": {
+		"title": "Merge PDFs",
+		"description": "Merge multiple PDF files into one. Drag and drop or select files, reorder them, and merge."
+	},
+	"split": {
+		"title": "Split PDF",
+		"description": "Split a PDF file into multiple files. Select a PDF file to get started."
+	},
+	"arrangement": {
+		"title": "Arrange PDF Pages",
+		"description": "Rearrange PDF pages with simple drag-and-drop, delete pages, and rotate pages."
+	},
+	"messages": {
+		"merging": "Merging PDF files...",
+		"mergeSuccess": "PDF files merged successfully!",
+		"mergeError": "Error merging PDF files.",
+		"splitting": "Splitting PDF file...",
+		"splitSuccess": "PDF file split successfully!",
+		"splitError": "Error splitting PDF file.",
+		"processing": "Processing PDF pages...",
+		"processingProgress": "Processing PDF pages... {{progress}}%",
+		"processSuccess": "PDF pages processed successfully!",
+		"processError": "Error processing PDF pages.",
+		"arrangeSuccess": "PDF pages arranged successfully!"
+	},
+	"buttons": {
+		"mergePdf": "Merge PDFs",
+		"splitPdf": "Split PDF",
+		"arrangePages": "Arrange Pages"
+	},
+	"uploadText": {
+		"default": "Click or drag files to upload",
+		"singleFile": "You can select single file",
+		"multipleFiles": "You can select multiple files"
+	},
+	"downloadMergedPDF": "Download Merged PDF",
+	"addMoreFiles": "Add more files",
+	"downloadZip": "Download ZIP with split PDFs",
+	"downloadSplitPDF": "Download split PDF",
+	"downloadArrangedPDF": "Download Arranged PDF",
+	"sider": {
+		"merge": {
+			"title": "Merge PDFs",
+			"info": "Click 'Select PDF files' button again to select multiple PDF files. Hold 'Ctrl' key to select multiple files."
+		},
+		"split": {
+			"title": "Split",
+			"splitMode": "Split mode:",
+			"customRanges": "Custom Ranges",
+			"fixedRanges": "Fixed Ranges"
+		},
+		"arrangement": {
+			"title": "Arrange PDF Pages",
+			"dragDropTitle": "Drag and Drop Instructions",
+			"dragDropInstructions": [
+				"Drag and drop pages to reorder them",
+				"Click the delete icon to remove a page",
+				"Changes will be applied when you click \"Arrange Pages\""
+			],
+			"pageCountTitle": "Page Count",
+			"pageCountDescription": "Make sure all pages are in the desired order before arranging."
 		}
 	}
 }

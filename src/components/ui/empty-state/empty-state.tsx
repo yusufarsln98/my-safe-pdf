@@ -2,6 +2,7 @@ import { InboxOutlined } from '@ant-design/icons'
 import { Typography, Upload, Flex } from 'antd'
 import type { UploadProps, FlexProps } from 'antd'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const { Title, Paragraph } = Typography
 const { Dragger } = Upload
@@ -22,13 +23,15 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 	title,
 	description,
 	uploadProps,
-	uploadText = 'Click or drag files to upload',
-	uploadHint = 'You can select multiple files',
+	uploadText,
+	uploadHint,
 	icon = <InboxOutlined />,
 	containerProps,
 	showUploader = true,
 	children,
 }) => {
+	const { t } = useTranslation()
+
 	return (
 		<Flex
 			vertical
@@ -51,8 +54,12 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
 					showUploadList={false}
 				>
 					<p className='ant-upload-drag-icon'>{icon}</p>
-					<p className='ant-upload-text'>{uploadText}</p>
-					<p className='ant-upload-hint'>{uploadHint}</p>
+					<p className='ant-upload-text'>
+						{uploadText || t('uploadText.default')}
+					</p>
+					<p className='ant-upload-hint'>
+						{uploadHint || t('uploadText.multipleFiles')}
+					</p>
 				</Dragger>
 			)}
 		</Flex>
