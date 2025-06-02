@@ -2,6 +2,7 @@
 	"home": {
 		"title": "PDF İşlemleriniz için Güvenli, Çevrimdışı ve Ücretsiz Araçlar",
 		"description": "Tüm PDF işlemlerinizi tarayıcınızda, tamamen çevrimdışı ve güvenli bir şekilde yapın. Dosyalarınız asla sunucularımıza yüklenmez. Temel özellikler: PDF'leri birleştirme, bölme, sayfa düzenleme, sayfa silme, döndürme ve görüntüleri (JPG/PNG) PDF'e dönüştürme. Sürükle-bırak ile kolay kullanım ve %100 ÜCRETSİZ!",
+		"alert": "Uygulama tamamen istemci tarafında çalışmaktadır. Bu nedenle, özellikle karmaşık formlar içeren bazı PDF dosyaları doğru şekilde işlenemeyebilir. Sonucu kontrol etmeyi unutmayın.",
 		"features": {
 			"merge": {
 				"title": "PDF Birleştir",

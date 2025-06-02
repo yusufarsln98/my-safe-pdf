@@ -2,6 +2,7 @@ import { DeleteOutlined, EllipsisOutlined } from '@ant-design/icons'
 import { Tooltip, Typography } from 'antd'
 import type { UploadFile } from 'antd'
 import React, { useMemo, useState } from 'react'
+import styled from 'styled-components'
 import {
 	FileInfo,
 	FileName,
@@ -9,11 +10,10 @@ import {
 	ActionButton,
 	ActionButtons,
 } from './grid-item.styles'
+import { StyledRangeGridItem, ThumbnailWrapper } from './range-grid-item.styles'
 import type { PDFInfo, SortableItem } from '../grid-sortable-list/types'
 import { formatFileSize } from '../grid-sortable-list/utils'
 import { PDFThumbnail } from '@/components/ui/pdf-thumbnail'
-import styled from 'styled-components'
-import { StyledRangeGridItem, ThumbnailWrapper } from './range-grid-item.styles'
 
 const { Text } = Typography
 

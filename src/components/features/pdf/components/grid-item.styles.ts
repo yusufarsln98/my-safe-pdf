@@ -1,5 +1,5 @@
-import styled, { createGlobalStyle } from 'styled-components'
 import { Button } from 'antd'
+import styled, { createGlobalStyle } from 'styled-components'
 
 interface GlobalStyleProps {
 	gridGap: number

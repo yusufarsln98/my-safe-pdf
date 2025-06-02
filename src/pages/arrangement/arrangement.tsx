@@ -1,21 +1,21 @@
 import { Button, message } from 'antd'
+import type { UploadFile } from 'antd/es/upload/interface'
 import React, { useEffect, useState } from 'react'
+import { ArrangementSider } from './components/arrangement-sider'
+import { GridSortablePdfList } from '@/components/features/pdf'
+import { SuccessScreen } from '@/components/features/pdf/success-screen'
 import { EmptyState } from '@/components/ui/empty-state'
 import { usePdfFiles } from '@/hooks/pdf'
-import { PageLayout } from '@/layout/page-layout'
 import { usePdfPageCount } from '@/hooks/usePdfPageCount'
-import { GridSortablePdfList } from '@/components/features/pdf'
-import { splitPDF } from '@/utils/pdf/splitUtils'
+import { PageLayout } from '@/layout/page-layout'
 import { mergePDFs, downloadPDF } from '@/utils/pdf/mergeUtils'
-import { SuccessScreen } from '@/components/features/pdf/success-screen'
-import type { UploadFile } from 'antd/es/upload/interface'
-import { ArrangementSider } from './components/arrangement-sider'
+import { splitPDF } from '@/utils/pdf/splitUtils'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ArrangeProps {}
 
 export const Arrangement: React.FC<ArrangeProps> = () => {
-	const { fileList, uploadProps } = usePdfFiles({
+	const { fileList, uploadProps, setFileList } = usePdfFiles({
 		maxFiles: 1,
 	})
 	const [arrangedPdfBytes, setArrangedPdfBytes] = useState<Uint8Array | null>(
@@ -150,6 +150,9 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 
 	const handleBack = () => {
 		setArrangedPdfBytes(null)
+		setFileList([])
+		setSplitPages([])
+		setSplitFileList([])
 	}
 
 	if (arrangedPdfBytes) {
@@ -165,7 +168,13 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 	}
 
 	return (
-		<PageLayout sider={fileList.length > 0 ? <ArrangementSider /> : undefined}>
+		<PageLayout
+			sider={
+				fileList.length > 0 ? (
+					<ArrangementSider onBack={handleBack} />
+				) : undefined
+			}
+		>
 			{fileList.length === 0 ? (
 				<EmptyState
 					uploadProps={uploadProps}

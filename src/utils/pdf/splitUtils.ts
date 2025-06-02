@@ -1,6 +1,6 @@
-import { PDFDocument } from 'pdf-lib'
 import { UploadFile } from 'antd'
 import JSZip from 'jszip'
+import { PDFDocument } from 'pdf-lib'
 import { PDFError, downloadPDF } from './mergeUtils'
 
 export interface PDFRange {

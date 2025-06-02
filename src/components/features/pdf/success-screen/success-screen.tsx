@@ -1,5 +1,5 @@
 import { LeftOutlined, DownloadOutlined } from '@ant-design/icons'
-import { Button, Flex, Typography } from 'antd'
+import { Button, Typography } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
 import { PDFPreview } from './pdf-preview'

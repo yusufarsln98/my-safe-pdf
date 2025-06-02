@@ -110,7 +110,7 @@ export const Home: React.FC<HomeProps> = () => {
 					{t('home.description')}
 				</Paragraph>
 				<Alert
-					message='The application is work on the client totally. Therefore, some of the PDF files especially with the complicated forms may not be able to be processed correctly. Do not forget to check the result.'
+					message={t('home.alert')}
 					type='info'
 					showIcon={true}
 				/>
