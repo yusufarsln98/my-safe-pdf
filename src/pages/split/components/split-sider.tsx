@@ -1,11 +1,11 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
-import { Form, Segmented, Typography, Button, Flex } from 'antd'
+import { Form, Segmented, Typography, Button, Flex, FormInstance } from 'antd'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CustomRangesForm } from './custom-ranges-form'
 import { FixedRangesForm } from './fixed-ranges-form'
 import { FixedSplitValue, RangeFormValue, SplitMode } from '../types'
 import { SidebarContent, SidebarLayout } from '@/layout/page-layout'
-import { useTranslation } from 'react-i18next'
 
 const { Title, Text } = Typography
 
@@ -13,15 +13,16 @@ interface SplitSiderProps {
 	totalPages: number
 	onRangesChange: (ranges: RangeFormValue) => void
 	onBack: () => void
+	form: FormInstance<RangeFormValue>
 }
 
 export const SplitSider: React.FC<SplitSiderProps> = ({
 	totalPages,
 	onRangesChange,
 	onBack,
+	form,
 }) => {
 	const [splitMode, setSplitMode] = useState<SplitMode>('custom')
-	const [form] = Form.useForm<RangeFormValue>()
 	const [fixedForm] = Form.useForm<FixedSplitValue>()
 	const { t } = useTranslation()
 

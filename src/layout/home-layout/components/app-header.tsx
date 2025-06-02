@@ -1,12 +1,13 @@
+import { GithubOutlined, LinkedinOutlined } from '@ant-design/icons'
 import { Link } from '@tanstack/react-router'
 import { Layout, Menu, Flex, Space } from 'antd'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import logoDark from '@/assets/logo-dark.png'
 import logo from '@/assets/logo.png'
 import { LanguageSwitcher } from '@/components/features/language-switcher/language-switcher'
 import { ThemeSwitcher, useTheme } from '@/components/features/theme'
-import { useTranslation } from 'react-i18next'
 
 const { Header } = Layout
 
@@ -21,6 +22,23 @@ const StyledHeader = styled(Header)`
 
 	.active-link {
 		color: ${(props) => props.theme.colorPrimary} !important;
+	}
+`
+
+const SocialIcons = styled.div`
+	display: flex;
+	gap: 8px;
+
+	.anticon {
+		font-size: 18px;
+		color: ${(props) => props.theme.colorText};
+		cursor: pointer;
+		transition: color 0.3s ease;
+		padding: 4px;
+
+		&:hover {
+			color: ${(props) => props.theme.colorPrimary};
+		}
 	}
 `
 
@@ -101,6 +119,22 @@ export const AppHeader: React.FC = () => {
 				align='center'
 				size={8}
 			>
+				<SocialIcons>
+					<a
+						href='https://www.linkedin.com/in/yusufarsln98'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						<LinkedinOutlined />
+					</a>
+					<a
+						href='https://github.com/yusufarsln98/my-safe-pdf'
+						target='_blank'
+						rel='noopener noreferrer'
+					>
+						<GithubOutlined />
+					</a>
+				</SocialIcons>
 				<ThemeSwitcher />
 				<LanguageSwitcher />
 			</Space>

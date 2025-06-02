@@ -1,8 +1,8 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Alert, Typography, Button, Flex } from 'antd'
 import React from 'react'
-import { SidebarLayout } from '@/layout/page-layout'
 import { useTranslation } from 'react-i18next'
+import { SidebarLayout } from '@/layout/page-layout'
 
 const { Title } = Typography
 

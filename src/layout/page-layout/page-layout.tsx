@@ -1,4 +1,4 @@
-import { Layout, Grid } from 'antd'
+import { Layout, Grid, Drawer } from 'antd'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
@@ -96,5 +96,27 @@ export const SidebarLayout: React.FC<{
 			{title && <SidebarTitleContainer>{title}</SidebarTitleContainer>}
 			<SidebarContent>{children}</SidebarContent>
 		</>
+	)
+}
+
+export interface ResponsiveSidebarDrawerProps {
+	children?: React.ReactNode
+	visible: boolean
+	onClose: () => void
+}
+
+export const ResponsiveSidebarDrawer: React.FC<
+	ResponsiveSidebarDrawerProps
+> = ({ children, visible, onClose }) => {
+	return (
+		<Drawer
+			placement='right'
+			styles={{ header: { display: 'none' }, body: { padding: 0 } }}
+			onClose={onClose}
+			open={visible}
+			width={320}
+		>
+			{children}
+		</Drawer>
 	)
 }

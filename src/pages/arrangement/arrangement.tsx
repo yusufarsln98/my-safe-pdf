@@ -1,16 +1,17 @@
-import { Button, message } from 'antd'
+import { Button, message, Grid } from 'antd'
 import type { UploadFile } from 'antd/es/upload/interface'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ArrangementSider } from './components/arrangement-sider'
 import { GridSortablePdfList } from '@/components/features/pdf'
 import { SuccessScreen } from '@/components/features/pdf/success-screen'
 import { EmptyState } from '@/components/ui/empty-state'
+import { FloatingSettingsButton } from '@/components/ui/floating-settings-button'
 import { usePdfFiles } from '@/hooks/pdf'
 import { usePdfPageCount } from '@/hooks/usePdfPageCount'
-import { PageLayout } from '@/layout/page-layout'
+import { PageLayout, ResponsiveSidebarDrawer } from '@/layout/page-layout'
 import { mergePDFs, downloadPDF } from '@/utils/pdf/mergeUtils'
 import { splitPDF } from '@/utils/pdf/splitUtils'
-import { useTranslation } from 'react-i18next'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ArrangeProps {}
@@ -22,6 +23,9 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 	const [arrangedPdfBytes, setArrangedPdfBytes] = useState<Uint8Array | null>(
 		null
 	)
+	const [drawerVisible, setDrawerVisible] = useState(false)
+	const screens = Grid.useBreakpoint()
+	const isSmallScreen = !screens.md
 	const totalPages = usePdfPageCount(fileList[0])
 	const [splitPages, setSplitPages] = useState<Uint8Array[]>([])
 	const [splitFileList, setSplitFileList] = useState<UploadFile[]>([])
@@ -91,6 +95,7 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 		}
 
 		handleSplitToPages()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fileList, totalPages])
 
 	const handleRemovePage = (index: number) => {
@@ -112,7 +117,7 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 	const handleArrange = async () => {
 		try {
 			message.loading({
-				content: 'Arranging PDF pages...',
+				content: t('messages.processing'),
 				key: 'arranging',
 			})
 
@@ -126,7 +131,7 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 				files: orderedFiles,
 				onProgress: (progress) => {
 					message.loading({
-						content: `Arranging PDF pages... ${Math.round(progress * 100)}%`,
+						content: `${t('messages.processingProgress', { progress: Math.round(progress * 100) })}`,
 						key: 'arranging',
 					})
 				},
@@ -134,13 +139,13 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 
 			setArrangedPdfBytes(mergedPdfBytes)
 			message.success({
-				content: 'PDF pages arranged successfully!',
+				content: t('messages.arrangeSuccess'),
 				key: 'arranging',
 			})
 		} catch (error) {
 			console.error('Error arranging PDF:', error)
 			message.error({
-				content: 'Error arranging PDF pages.',
+				content: t('messages.processError'),
 				key: 'arranging',
 			})
 		}
@@ -169,20 +174,17 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 				onBack={handleBack}
 				onDownload={handleDownload}
 				pdfBytes={arrangedPdfBytes}
-				title='PDF pages arranged successfully!'
-				downloadButtonText='Download Arranged PDF'
+				title={t('messages.arrangeSuccess')}
+				downloadButtonText={t('downloadArrangedPDF')}
 			/>
 		)
 	}
 
+	const siderContent =
+		fileList.length > 0 ? <ArrangementSider onBack={handleBack} /> : undefined
+
 	return (
-		<PageLayout
-			sider={
-				fileList.length > 0 ? (
-					<ArrangementSider onBack={handleBack} />
-				) : undefined
-			}
-		>
+		<PageLayout sider={!isSmallScreen ? siderContent : undefined}>
 			{fileList.length === 0 ? (
 				<EmptyState
 					uploadProps={uploadProps}
@@ -218,6 +220,17 @@ export const Arrangement: React.FC<ArrangeProps> = () => {
 						{t('buttons.arrangePages')}
 					</Button>
 				</div>
+			)}
+			{isSmallScreen && fileList.length > 0 && (
+				<>
+					<ResponsiveSidebarDrawer
+						visible={drawerVisible}
+						onClose={() => setDrawerVisible(false)}
+					>
+						{siderContent}
+					</ResponsiveSidebarDrawer>
+					<FloatingSettingsButton onClick={() => setDrawerVisible(true)} />
+				</>
 			)}
 		</PageLayout>
 	)

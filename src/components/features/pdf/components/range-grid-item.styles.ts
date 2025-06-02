@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const StyledRangeGridItem = styled.div`
 	position: relative;
 	max-width: 320px;
+	max-height: 280px;
 	border: 2px dashed ${(props) => props.theme.colorBorder};
 	border-radius: ${(props) => props.theme.borderRadius}px;
 	padding: 16px;

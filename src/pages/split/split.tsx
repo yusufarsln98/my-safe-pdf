@@ -1,14 +1,16 @@
-import { Flex, Button, message } from 'antd'
+import { Button, message, Grid, Form } from 'antd'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { styled } from 'styled-components'
 import { SplitSider } from './components/split-sider'
 import { RangeGridItem } from '@/components/features/pdf'
 import { SuccessScreen } from '@/components/features/pdf/success-screen'
 import { EmptyState } from '@/components/ui/empty-state'
+import { FloatingSettingsButton } from '@/components/ui/floating-settings-button'
 import { usePdfFiles } from '@/hooks/pdf'
 import { usePdfPageCount } from '@/hooks/usePdfPageCount'
-import { PageLayout } from '@/layout/page-layout'
+import { PageLayout, ResponsiveSidebarDrawer } from '@/layout/page-layout'
 import { splitPDF, downloadSplitPDFs } from '@/utils/pdf/splitUtils'
-import { useTranslation } from 'react-i18next'
 
 interface PageRange {
 	from: number
@@ -19,12 +21,23 @@ interface RangeFormValue {
 	ranges: PageRange[]
 }
 
+const StyledGridContainer = styled.div`
+	display: flex;
+	gap: 16px;
+	min-height: calc(100vh - 136px);
+	flex-wrap: wrap;
+`
+
 export const Split: React.FC = () => {
+	const [form] = Form.useForm<RangeFormValue>()
 	const [ranges, setRanges] = useState<PageRange[]>([])
 	const [splitPdfBytes, setSplitPdfBytes] = useState<Uint8Array[] | null>(null)
 	const { fileList, uploadProps, setFileList } = usePdfFiles({
 		maxFiles: 1,
 	})
+	const [drawerVisible, setDrawerVisible] = useState(false)
+	const screens = Grid.useBreakpoint()
+	const isSmallScreen = !screens.md
 	const totalPages = usePdfPageCount(fileList[0])
 	const { t } = useTranslation()
 
@@ -39,7 +52,12 @@ export const Split: React.FC = () => {
 	}, [totalPages])
 
 	const onRemove = (index: number) => {
-		setRanges(ranges.filter((_, i) => i !== index))
+		const newRanges = ranges.filter((_, i) => i !== index)
+		setRanges(newRanges)
+		form.setFieldsValue({ ranges: newRanges })
+		if (newRanges.length === 0) {
+			setFileList([])
+		}
 	}
 
 	const handleSplit = async () => {
@@ -102,24 +120,24 @@ export const Split: React.FC = () => {
 		)
 	}
 
+	const siderContent =
+		fileList.length > 0 ? (
+			<SplitSider
+				totalPages={totalPages}
+				onRangesChange={onRangesChange}
+				onBack={handleClearAll}
+				form={form}
+			/>
+		) : undefined
+
 	return (
-		<PageLayout
-			sider={
-				fileList.length > 0 ? (
-					<SplitSider
-						totalPages={totalPages}
-						onRangesChange={onRangesChange}
-						onBack={handleClearAll}
-					/>
-				) : undefined
-			}
-		>
+		<PageLayout sider={!isSmallScreen ? siderContent : undefined}>
 			{fileList.length === 0 ? (
 				<EmptyState
 					uploadProps={uploadProps}
 					title={t('split.title')}
 					description={t('split.description')}
-					uploadHint='You can select single file'
+					uploadHint={t('uploadText.singleFile')}
 				/>
 			) : (
 				<div
@@ -130,13 +148,7 @@ export const Split: React.FC = () => {
 						flexDirection: 'column',
 					}}
 				>
-					<Flex
-						gap={24}
-						style={{
-							width: '100%',
-							flexWrap: 'wrap',
-						}}
-					>
+					<StyledGridContainer>
 						{ranges.map((range, index) => (
 							<RangeGridItem
 								key={index}
@@ -147,7 +159,7 @@ export const Split: React.FC = () => {
 								endingPage={range.to}
 							/>
 						))}
-					</Flex>
+					</StyledGridContainer>
 					<Button
 						type='primary'
 						size='large'
@@ -158,6 +170,17 @@ export const Split: React.FC = () => {
 						{t('buttons.splitPdf')}
 					</Button>
 				</div>
+			)}
+			{isSmallScreen && fileList.length > 0 && (
+				<>
+					<ResponsiveSidebarDrawer
+						visible={drawerVisible}
+						onClose={() => setDrawerVisible(false)}
+					>
+						{siderContent}
+					</ResponsiveSidebarDrawer>
+					<FloatingSettingsButton onClick={() => setDrawerVisible(true)} />
+				</>
 			)}
 		</PageLayout>
 	)
