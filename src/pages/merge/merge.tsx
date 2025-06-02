@@ -1,14 +1,13 @@
-import { Alert, Typography, Button, message } from 'antd'
+import { Button, message } from 'antd'
 import React, { useState } from 'react'
+import { MergeSider } from './components/merge-sider'
 import { GridSortablePdfList } from '@/components/features/pdf'
+import { SuccessScreen } from '@/components/features/pdf/success-screen'
 import { EmptyState } from '@/components/ui/empty-state'
 import { FloatingUploadButton } from '@/components/ui/floating-upload-button'
 import { usePdfFiles } from '@/hooks/pdf'
-import { PageLayout, SidebarLayout } from '@/layout/page-layout'
+import { PageLayout } from '@/layout/page-layout'
 import { mergePDFs, downloadPDF } from '@/utils/pdf'
-import { SuccessScreen } from '@/components/features/pdf/success-screen'
-
-const { Title } = Typography
 
 export const Merge: React.FC = () => {
 	const { fileList, uploadProps, removeFile, setFileList } = usePdfFiles()
@@ -45,6 +44,10 @@ export const Merge: React.FC = () => {
 		setMergedPdfBytes(null)
 	}
 
+	const handleClearAll = () => {
+		setFileList([])
+	}
+
 	if (mergedPdfBytes) {
 		return (
 			<SuccessScreen
@@ -58,26 +61,12 @@ export const Merge: React.FC = () => {
 		)
 	}
 
-	const sidebarContent = (
-		<SidebarLayout
-			title={
-				<Title
-					level={5}
-					style={{ margin: 0, padding: 0 }}
-				>
-					Merge PDFs
-				</Title>
+	return (
+		<PageLayout
+			sider={
+				fileList.length > 0 ? <MergeSider onBack={handleClearAll} /> : undefined
 			}
 		>
-			<Alert
-				message="Click 'Select PDF files' button again to select multiple PDF files. Hold 'Ctrl' key to select multiple files."
-				type='info'
-			/>
-		</SidebarLayout>
-	)
-
-	return (
-		<PageLayout sider={fileList.length > 0 ? sidebarContent : undefined}>
 			{fileList.length === 0 ? (
 				<EmptyState
 					uploadProps={uploadProps}

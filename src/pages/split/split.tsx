@@ -21,7 +21,7 @@ interface RangeFormValue {
 export const Split: React.FC = () => {
 	const [ranges, setRanges] = useState<PageRange[]>([])
 	const [splitPdfBytes, setSplitPdfBytes] = useState<Uint8Array[] | null>(null)
-	const { fileList, uploadProps } = usePdfFiles({
+	const { fileList, uploadProps, setFileList } = usePdfFiles({
 		maxFiles: 1,
 	})
 	const totalPages = usePdfPageCount(fileList[0])
@@ -80,6 +80,11 @@ export const Split: React.FC = () => {
 		setSplitPdfBytes(null)
 	}
 
+	const handleClearAll = () => {
+		setFileList([])
+		setRanges([])
+	}
+
 	if (splitPdfBytes) {
 		return (
 			<SuccessScreen
@@ -104,6 +109,7 @@ export const Split: React.FC = () => {
 					<SplitSider
 						totalPages={totalPages}
 						onRangesChange={onRangesChange}
+						onBack={handleClearAll}
 					/>
 				) : undefined
 			}

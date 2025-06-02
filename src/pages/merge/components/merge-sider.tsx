@@ -1,18 +1,22 @@
-import { Alert, Typography, Button, Space } from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Alert, Typography, Button, Flex } from 'antd'
 import React from 'react'
 import { SidebarLayout } from '@/layout/page-layout'
 
 const { Title } = Typography
 
 interface MergeSiderProps {
-	onClear: () => void
+	onBack: () => void
 }
 
-export const MergeSider: React.FC<MergeSiderProps> = ({ onClear }) => {
+export const MergeSider: React.FC<MergeSiderProps> = ({ onBack }) => {
 	return (
 		<SidebarLayout
 			title={
-				<Space align='center'>
+				<Flex
+					align='center'
+					justify='space-between'
+				>
 					<Title
 						level={5}
 						style={{ margin: 0, padding: 0 }}
@@ -21,12 +25,10 @@ export const MergeSider: React.FC<MergeSiderProps> = ({ onClear }) => {
 					</Title>
 					<Button
 						type='text'
-						size='small'
-						onClick={onClear}
-					>
-						Clear
-					</Button>
-				</Space>
+						onClick={onBack}
+						icon={<ArrowLeftOutlined />}
+					/>
+				</Flex>
 			}
 		>
 			<Alert

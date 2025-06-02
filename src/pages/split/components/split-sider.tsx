@@ -1,20 +1,23 @@
-import { Form, Segmented, Typography } from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Form, Segmented, Typography, Button, Flex } from 'antd'
 import React, { useState } from 'react'
 import { CustomRangesForm } from './custom-ranges-form'
 import { FixedRangesForm } from './fixed-ranges-form'
-import {
-	FixedSplitValue,
-	RangeFormValue,
-	SplitMode,
-	SplitSiderProps,
-} from '../types'
+import { FixedSplitValue, RangeFormValue, SplitMode } from '../types'
 import { SidebarContent, SidebarLayout } from '@/layout/page-layout'
 
 const { Title, Text } = Typography
 
+interface SplitSiderProps {
+	totalPages: number
+	onRangesChange: (ranges: RangeFormValue) => void
+	onBack: () => void
+}
+
 export const SplitSider: React.FC<SplitSiderProps> = ({
 	totalPages,
 	onRangesChange,
+	onBack,
 }) => {
 	const [splitMode, setSplitMode] = useState<SplitMode>('custom')
 	const [form] = Form.useForm<RangeFormValue>()
@@ -23,12 +26,22 @@ export const SplitSider: React.FC<SplitSiderProps> = ({
 	return (
 		<SidebarLayout
 			title={
-				<Title
-					level={5}
-					style={{ margin: 0, padding: 0 }}
+				<Flex
+					align='center'
+					justify='space-between'
 				>
-					Split
-				</Title>
+					<Title
+						level={5}
+						style={{ margin: 0, padding: 0 }}
+					>
+						Split
+					</Title>
+					<Button
+						type='text'
+						onClick={onBack}
+						icon={<ArrowLeftOutlined />}
+					/>
+				</Flex>
 			}
 		>
 			<SidebarContent>

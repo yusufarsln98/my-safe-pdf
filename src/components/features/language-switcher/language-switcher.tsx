@@ -17,6 +17,8 @@ const LANGUAGE_OPTIONS = [
 	{ value: 'tr', label: 'Türkçe', flag: '🇹🇷' },
 ]
 
+const DEFAULT_LANGUAGE = 'en' // Define default language
+
 export const LanguageSwitcher: React.FC = () => {
 	const { i18n } = useTranslation()
 
@@ -37,9 +39,10 @@ export const LanguageSwitcher: React.FC = () => {
 		),
 	}))
 
-	const currentOption = LANGUAGE_OPTIONS.find(
-		(opt) => opt.value === i18n.language
-	)
+	// Handle case when no language is selected or language doesn't exist in options
+	const currentOption =
+		LANGUAGE_OPTIONS.find((opt) => opt.value === i18n.language) ||
+		LANGUAGE_OPTIONS.find((opt) => opt.value === DEFAULT_LANGUAGE)!
 
 	return (
 		<Dropdown
@@ -58,8 +61,8 @@ export const LanguageSwitcher: React.FC = () => {
 					align='center'
 					gap={4}
 				>
-					<span style={{ fontSize: '14px' }}>{currentOption?.flag}</span>
-					<span>{currentOption?.label}</span>
+					<span style={{ fontSize: '14px' }}>{currentOption.flag}</span>
+					<span>{currentOption.label}</span>
 				</Flex>
 			</LanguageIconButton>
 		</Dropdown>
