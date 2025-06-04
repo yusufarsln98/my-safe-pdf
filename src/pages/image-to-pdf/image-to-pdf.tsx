@@ -15,6 +15,8 @@ import { convertImagesToPDFs } from '@/utils/pdf/imageUtils'
 interface ImageToPdfProps {}
 
 export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
+  const { t } = useTranslation()
+
   const { fileList, uploadProps, setFileList, removeFile } = usePdfFiles({
     maxFiles: 10, // Up to 10 files can be added
   })
@@ -23,19 +25,18 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
   const [isProcessing, setIsProcessing] = useState(false)
   const screens = Grid.useBreakpoint()
   const isSmallScreen = !screens.md
-  const { t } = useTranslation()
 
   // Convert images to PDF
   const handleConvert = async () => {
     if (fileList.length === 0) {
-      message.error('Please upload at least one image file')
+      message.error(t('messages.convertError'))
       return
     }
 
     try {
       setIsProcessing(true)
       message.loading({
-        content: 'Converting images to PDF...',
+        content: t('messages.converting'),
         key: 'converting',
       })
 
@@ -44,7 +45,7 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
         files: fileList,
         onProgress: (progress) => {
           message.loading({
-            content: `Converting images: ${Math.round(progress * 100)}%`,
+            content: t('messages.convertingProgress', { progress: Math.round(progress * 100) }),
             key: 'converting',
           })
         },
@@ -54,7 +55,7 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
       let finalPdfBytes: Uint8Array
       if (pdfBytesList.length > 1) {
         message.loading({
-          content: 'Merging PDFs...',
+          content: t('messages.merging'),
           key: 'converting',
         })
 
@@ -80,7 +81,7 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
           files: pdfFiles,
           onProgress: (progress) => {
             message.loading({
-              content: `Merging PDFs: ${Math.round(progress * 100)}%`,
+              content: t('messages.processingProgress', { progress: Math.round(progress * 100) }),
               key: 'converting',
             })
           },
@@ -91,13 +92,13 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
 
       setConvertedPdfBytes(finalPdfBytes)
       message.success({
-        content: 'Images converted to PDF successfully',
+        content: t('messages.convertSuccess'),
         key: 'converting',
       })
     } catch (error) {
       console.error('Error converting images to PDF:', error)
       message.error({
-        content: 'Failed to convert images to PDF',
+        content: t('messages.convertError'),
         key: 'converting',
       })
     } finally {
@@ -128,8 +129,8 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
         onBack={handleBack}
         onDownload={handleDownload}
         pdfBytes={convertedPdfBytes}
-        title="Images converted to PDF successfully"
-        downloadButtonText="Download PDF"
+        title={t('messages.convertSuccess')}
+        downloadButtonText={t('downloadConvertedPDF')}
         hidePreview={false}
       />
     )
@@ -151,9 +152,9 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
       {fileList.length === 0 ? (
         <EmptyState
           uploadProps={enhancedUploadProps}
-          title="Image to PDF"
-          description="Upload image files to convert them to PDF"
-          uploadHint="Upload JPG, JPEG or PNG files"
+          title={t('imageToPdf.title')}
+          description={t('imageToPdf.description')}
+          uploadHint={t('uploadText.default')}
         />
       ) : (
         <div
@@ -181,7 +182,7 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
             onClick={handleConvert}
             loading={isProcessing}
           >
-            Convert to PDF
+            {t('buttons.convertToPdf')}
           </Button>
         </div>
       )}

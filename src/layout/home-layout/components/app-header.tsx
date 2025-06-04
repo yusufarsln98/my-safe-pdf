@@ -74,6 +74,11 @@ export const AppHeader: React.FC = () => {
 			path: '/arrangement',
 			label: t('menu.arrangement'),
 		},
+		{
+			key: 'image-to-pdf',
+			path: '/image-to-pdf',
+			label: t('menu.imageToPdf'),
+		},
 	]
 
 	// Convert menu items to Ant Design format with active state

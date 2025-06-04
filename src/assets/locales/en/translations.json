@@ -16,7 +16,7 @@
 				"title": "Page Reorder",
 				"description": "Rearrange PDF pages with simple drag-and-drop, delete pages, and rotate pages."
 			},
-			"imagesToPdf": {
+			"imageToPdf": {
 				"title": "Images to PDF",
 				"description": "Convert JPG and PNG files into a single PDF."
 			}
@@ -102,19 +102,7 @@
 			"pageCountDescription": "Make sure all pages are in the desired order before arranging."
 		},
 		"imageToPdf": {
-			"title": "Image to PDF",
-			"instructions": "Instructions",
-			"instructionsList": [
-				"Upload one or more image files",
-				"Arrange the images in the desired order",
-				"Click 'Convert to PDF' button",
-				"Download the resulting PDF file"
-			],
-			"supportedTypes": "Supported File Types",
-			"supportedTypesList": [
-				"JPEG/JPG",
-				"PNG"
-			]
+			"title": "Image to PDF"
 		}
 	}
 }

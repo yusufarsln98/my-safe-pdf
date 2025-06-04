@@ -82,8 +82,8 @@ export const Home: React.FC<HomeProps> = () => {
 		},
 		{
 			icon: imageToPdfIcon,
-			title: t('home.features.imageToPdf.title', 'Image to PDF'),
-			description: t('home.features.imageToPdf.description', 'Convert your images to PDF format easily'),
+			title: t('home.features.imageToPdf.title'),
+			description: t('home.features.imageToPdf.description'),
 			to: '/image-to-pdf',
 		},
 	]

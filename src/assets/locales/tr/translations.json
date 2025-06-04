@@ -14,11 +14,11 @@
 			},
 			"reorder": {
 				"title": "Sayfa Düzeni",
-				"description": "Sürükle-bırak ile PDF sayfalarının sırasını değiştirebilirsin, sayfaları silebilir ve döndürebilirsin."
+				"description": "Sürükle-bırak ile PDF sayfalarının sırasını değiştirin, sayfaları silin ve döndürün."
 			},
-			"imagesToPdf": {
+			"imageToPdf": {
 				"title": "Resimden PDF",
-				"description": "JPG ve PNG dosyalarını tek bir PDF'e dönüştürebilirsin."
+				"description": "JPG ve PNG dosyalarını tek bir PDF'e dönüştürün."
 			}
 		}
 	},
@@ -102,19 +102,7 @@
 			"pageCountDescription": "Düzenlemeden önce tüm sayfaların istenen sırada olduğundan emin olun."
 		},
 		"imageToPdf": {
-			"title": "Resimden PDF",
-			"instructions": "Talimatlar",
-			"instructionsList": [
-				"Bir veya daha fazla görsel dosyası yükleyin",
-				"Görselleri istediğiniz sırada düzenleyin",
-				"'PDF'e Dönüştür' düğmesine tıklayın",
-				"Oluşturulan PDF dosyasını indirin"
-			],
-			"supportedTypes": "Desteklenen Dosya Türleri",
-			"supportedTypesList": [
-				"JPEG/JPG",
-				"PNG"
-			]
+			"title": "Resimden PDF"
 		}
 	}
 }
