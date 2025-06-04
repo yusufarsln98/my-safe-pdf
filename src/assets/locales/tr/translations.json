@@ -26,7 +26,8 @@
 		"home": "Ana Sayfa",
 		"merge": "PDF Birleştir",
 		"split": "PDF Ayır",
-		"arrangement": "PDF Sayfalarını Düzenle"
+		"arrangement": "PDF Sayfalarını Düzenle",
+		"imageToPdf": "Resimden PDF"
 	},
 	"merge": {
 		"title": "PDF Birleştir",
@@ -40,6 +41,10 @@
 		"title": "PDF Sayfalarını Düzenle",
 		"description": "PDF sayfalarını basit sürükle-bırak ile yeniden düzenleyin, sayfaları silin ve döndürün."
 	},
+	"imageToPdf": {
+		"title": "Resimden PDF",
+		"description": "Görsel dosyalarınızı (JPG, JPEG, PNG) PDF formatına dönüştürün. Tek bir PDF oluşturmak için birden fazla görsel yükleyebilirsiniz."
+	},
 	"messages": {
 		"merging": "PDF dosyaları birleştiriliyor...",
 		"mergeSuccess": "PDF dosyaları başarıyla birleştirildi!",
@@ -51,12 +56,17 @@
 		"processingProgress": "PDF sayfaları işleniyor... {{progress}}%",
 		"processSuccess": "PDF sayfaları başarıyla işlendi!",
 		"processError": "PDF sayfaları işlenirken hata oluştu.",
-		"arrangeSuccess": "PDF sayfaları başarıyla düzenlendi!"
+		"arrangeSuccess": "PDF sayfaları başarıyla düzenlendi!",
+		"converting": "Görseller PDF'e dönüştürülüyor...",
+		"convertingProgress": "Görseller dönüştürülüyor: {{progress}}%",
+		"convertSuccess": "Görseller başarıyla PDF'e dönüştürüldü!",
+		"convertError": "Görseller PDF'e dönüştürülürken hata oluştu."
 	},
 	"buttons": {
 		"mergePdf": "PDF'leri Birleştir",
 		"splitPdf": "PDF'i Ayır",
-		"arrangePages": "Sayfaları Düzenle"
+		"arrangePages": "Sayfaları Düzenle",
+		"convertToPdf": "PDF'e Dönüştür"
 	},
 	"uploadText": {
 		"default": "Yüklemek için tıklayın veya dosyaları sürükleyin",
@@ -68,6 +78,7 @@
 	"downloadZip": "Bölünmüş PDF'lerle ZIP İndir",
 	"downloadSplitPDF": "Bölünmüş PDF'i İndir",
 	"downloadArrangedPDF": "Düzenlenmiş PDF'i İndir",
+	"downloadConvertedPDF": "Dönüştürülmüş PDF'i İndir",
 	"sider": {
 		"merge": {
 			"title": "PDF Birleştir",
@@ -89,6 +100,21 @@
 			],
 			"pageCountTitle": "Sayfa Sayısı",
 			"pageCountDescription": "Düzenlemeden önce tüm sayfaların istenen sırada olduğundan emin olun."
+		},
+		"imageToPdf": {
+			"title": "Resimden PDF",
+			"instructions": "Talimatlar",
+			"instructionsList": [
+				"Bir veya daha fazla görsel dosyası yükleyin",
+				"Görselleri istediğiniz sırada düzenleyin",
+				"'PDF'e Dönüştür' düğmesine tıklayın",
+				"Oluşturulan PDF dosyasını indirin"
+			],
+			"supportedTypes": "Desteklenen Dosya Türleri",
+			"supportedTypesList": [
+				"JPEG/JPG",
+				"PNG"
+			]
 		}
 	}
 }

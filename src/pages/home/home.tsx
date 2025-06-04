@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import mergeIcon from '@/assets/icons/merge.svg'
 import reorderIcon from '@/assets/icons/reorder.svg'
 import splitIcon from '@/assets/icons/split.svg'
+import imageToPdfIcon from '@/assets/icons/jpg-to-pdf.svg'
 
 const { Title, Paragraph } = Typography
 
@@ -78,6 +79,12 @@ export const Home: React.FC<HomeProps> = () => {
 			title: t('home.features.reorder.title'),
 			description: t('home.features.reorder.description'),
 			to: '/arrangement',
+		},
+		{
+			icon: imageToPdfIcon,
+			title: t('home.features.imageToPdf.title', 'Image to PDF'),
+			description: t('home.features.imageToPdf.description', 'Convert your images to PDF format easily'),
+			to: '/image-to-pdf',
 		},
 	]
 

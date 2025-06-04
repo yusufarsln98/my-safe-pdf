@@ -26,7 +26,8 @@
 		"home": "Home",
 		"merge": "Merge PDFs",
 		"split": "Split PDF",
-		"arrangement": "Arrange PDFs"
+		"arrangement": "Arrange PDFs",
+		"imageToPdf": "Image to PDF"
 	},
 	"merge": {
 		"title": "Merge PDFs",
@@ -40,6 +41,10 @@
 		"title": "Arrange PDF Pages",
 		"description": "Rearrange PDF pages with simple drag-and-drop, delete pages, and rotate pages."
 	},
+	"imageToPdf": {
+		"title": "Image to PDF",
+		"description": "Convert your image files (JPG, JPEG, PNG) to PDF format. Upload multiple images to create a single PDF document."
+	},
 	"messages": {
 		"merging": "Merging PDF files...",
 		"mergeSuccess": "PDF files merged successfully!",
@@ -51,12 +56,17 @@
 		"processingProgress": "Processing PDF pages... {{progress}}%",
 		"processSuccess": "PDF pages processed successfully!",
 		"processError": "Error processing PDF pages.",
-		"arrangeSuccess": "PDF pages arranged successfully!"
+		"arrangeSuccess": "PDF pages arranged successfully!",
+		"converting": "Converting images to PDF...",
+		"convertingProgress": "Converting images: {{progress}}%",
+		"convertSuccess": "Images converted to PDF successfully!",
+		"convertError": "Error converting images to PDF."
 	},
 	"buttons": {
 		"mergePdf": "Merge PDFs",
 		"splitPdf": "Split PDF",
-		"arrangePages": "Arrange Pages"
+		"arrangePages": "Arrange Pages",
+		"convertToPdf": "Convert to PDF"
 	},
 	"uploadText": {
 		"default": "Click or drag files to upload",
@@ -68,6 +78,7 @@
 	"downloadZip": "Download ZIP with split PDFs",
 	"downloadSplitPDF": "Download split PDF",
 	"downloadArrangedPDF": "Download Arranged PDF",
+	"downloadConvertedPDF": "Download Converted PDF",
 	"sider": {
 		"merge": {
 			"title": "Merge PDFs",
@@ -89,6 +100,21 @@
 			],
 			"pageCountTitle": "Page Count",
 			"pageCountDescription": "Make sure all pages are in the desired order before arranging."
+		},
+		"imageToPdf": {
+			"title": "Image to PDF",
+			"instructions": "Instructions",
+			"instructionsList": [
+				"Upload one or more image files",
+				"Arrange the images in the desired order",
+				"Click 'Convert to PDF' button",
+				"Download the resulting PDF file"
+			],
+			"supportedTypes": "Supported File Types",
+			"supportedTypesList": [
+				"JPEG/JPG",
+				"PNG"
+			]
 		}
 	}
 }
