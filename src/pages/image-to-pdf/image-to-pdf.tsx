@@ -1,16 +1,17 @@
-import { Button, message, Grid } from 'antd'
+import { Button, message, Grid, Radio, Space, Typography } from 'antd'
 import type { UploadFile } from 'antd/es/upload/interface'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ImageToPdfSider } from './components/image-to-pdf-sider.js'
-import { GridSortablePdfList } from '@/components/features/pdf'
 import { SuccessScreen } from '@/components/features/pdf/success-screen'
 import { EmptyState } from '@/components/ui/empty-state'
 import { FloatingSettingsButton } from '@/components/ui/floating-settings-button'
+import { FloatingUploadButton } from '@/components/ui/floating-upload-button'
 import { usePdfFiles } from '@/hooks/pdf'
 import { PageLayout, ResponsiveSidebarDrawer } from '@/layout/page-layout'
 import { mergePDFs, downloadPDF } from '@/utils/pdf/mergeUtils'
-import { convertImagesToPDFs } from '@/utils/pdf/imageUtils'
+import { convertImagesToPDFs, ImageFitOption } from '@/utils/image/imageUtils'
+import { ImageGridSortableList } from '@/components/features/pdf/grid-sortable-list/image-grid-sortable-list'
 
 interface ImageToPdfProps {}
 
@@ -23,6 +24,7 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
   const [convertedPdfBytes, setConvertedPdfBytes] = useState<Uint8Array | null>(null)
   const [drawerVisible, setDrawerVisible] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
+  const [fitOption, setFitOption] = useState<ImageFitOption>(ImageFitOption.FIT_TO_PAGE) // Fit to page by default
   const screens = Grid.useBreakpoint()
   const isSmallScreen = !screens.md
 
@@ -43,9 +45,10 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
       // Convert images to PDF
       const pdfBytesList = await convertImagesToPDFs({
         files: fileList,
+        fitOption: fitOption, // Pass sizing option
         onProgress: (progress) => {
           message.loading({
-            content: t('messages.convertingProgress', { progress: Math.round(progress * 100) }),
+            content: t('messages.convertingProgress', { progress: Math.round(progress * 100), defaultValue: `Converting: ${Math.round(progress * 100)}%` }),
             key: 'converting',
           })
         },
@@ -97,8 +100,9 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
       })
     } catch (error) {
       console.error('Error converting images to PDF:', error)
+      const errorMessage = error instanceof Error ? error.message : t('messages.convertError')
       message.error({
-        content: t('messages.convertError'),
+        content: errorMessage,
         key: 'converting',
       })
     } finally {
@@ -145,6 +149,14 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
     ...uploadProps,
     accept: '.jpg,.jpeg,.png',
     multiple: true,
+    beforeUpload: (file: File) => {
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isJpgOrPng) {
+        message.error(t('messages.onlyJpgPng'));
+        return false;
+      }
+      return true;
+    }
   }
 
   return (
@@ -168,22 +180,59 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
           }}
         >
           <div style={{ flex: 1, minHeight: 0 }}>
-            <GridSortablePdfList
+            <ImageGridSortableList
               files={fileList}
               onFilesChange={setFileList}
               onRemoveFile={removeFile}
               showDeleteButton={true}
             />
           </div>
-          <Button
-            type="primary"
-            size="large"
-            disabled={fileList.length === 0 || isProcessing}
-            onClick={handleConvert}
-            loading={isProcessing}
-          >
-            {t('buttons.convertToPdf')}
-          </Button>
+          
+          {/* Bottom controls area with options and convert button */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            {/* Image size options - left side */}
+            <div>
+              <Typography.Title level={3}>{t('imageToPdf.fitOptions')}</Typography.Title>
+              <Radio.Group 
+                value={fitOption} 
+                onChange={(e) => setFitOption(e.target.value)}
+              >
+                <Space direction="vertical">
+                  <Radio value={ImageFitOption.FIT_TO_PAGE}>
+                    <Space align="start">
+                      <span>{t('imageToPdf.fitToPage', 'Fit to Page')}</span>
+                    <Typography.Text type="secondary">{t('imageToPdf.fitToPageDesc')}</Typography.Text>
+                    </Space>
+                  </Radio>
+                  <Radio value={ImageFitOption.ORIGINAL}>
+                    <Space align="start">
+                      <span>{t('imageToPdf.originalSize', 'Original Size')}</span>
+                    <Typography.Text type="secondary">{t('imageToPdf.originalSizeDesc')}</Typography.Text>
+                    </Space>
+                  </Radio>
+                </Space>
+              </Radio.Group>
+            </div>
+            
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button
+                type="primary"
+                size="large"
+                disabled={fileList.length === 0 || isProcessing}
+                onClick={handleConvert}
+                loading={isProcessing}
+              >
+                {t('buttons.convertToPdf')}
+              </Button>
+            </div>
+          </div>
+          {/* Floating upload button for adding more files */}
+          <FloatingUploadButton
+            uploadProps={enhancedUploadProps}
+            tooltipText={t('addMoreFiles')}
+            badgeCount={fileList.length}
+            position={{ right: '24px', bottom: '24px' }}
+          />
         </div>
       )}
       {isSmallScreen && fileList.length > 0 && (

@@ -43,7 +43,12 @@
 	},
 	"imageToPdf": {
 		"title": "Resimden PDF",
-		"description": "Görsel dosyalarınızı (JPG, JPEG, PNG) PDF formatına dönüştürün. Tek bir PDF oluşturmak için birden fazla görsel yükleyebilirsiniz."
+		"description": "Görsel dosyalarınızı (JPG, JPEG, PNG) PDF formatına dönüştürün. Tek bir PDF oluşturmak için birden fazla görsel yükleyebilirsiniz.",
+		"fitOptions": "Görsel Boyut Seçenekleri",
+		"fitToPage": "Sayfaya Sığdır",
+		"fitToPageDesc": "Görselleri A4 sayfa boyutuna sığacak şekilde yeniden boyutlandır (tutarlı düzen için önerilir)",
+		"originalSize": "Orijinal Boyut",
+		"originalSizeDesc": "Orijinal görsel boyutlarını koru (farklı sayfa boyutlarına neden olabilir)"
 	},
 	"messages": {
 		"merging": "PDF dosyaları birleştiriliyor...",
@@ -60,13 +65,25 @@
 		"converting": "Görseller PDF'e dönüştürülüyor...",
 		"convertingProgress": "Görseller dönüştürülüyor: {{progress}}%",
 		"convertSuccess": "Görseller başarıyla PDF'e dönüştürüldü!",
-		"convertError": "Görseller PDF'e dönüştürülürken hata oluştu."
+		"convertError": "Görseller PDF'e dönüştürülürken hata oluştu.",
+		"onlyJpgPng": "Sadece JPG ve PNG dosyaları desteklenmektedir"
 	},
 	"buttons": {
-		"mergePdf": "PDF'leri Birleştir",
-		"splitPdf": "PDF'i Ayır",
-		"arrangePages": "Sayfaları Düzenle",
-		"convertToPdf": "PDF'e Dönüştür"
+		"back": "Geri",
+		"cancel": "İptal",
+		"close": "Kapat",
+		"confirm": "Onayla",
+		"continue": "Devam Et",
+		"convertToPdf": "PDF'e Dönüştür",
+		"download": "İndir",
+		"downloadPdf": "PDF İndir",
+		"merge": "Birleştir",
+		"mergePdfs": "PDF'leri Birleştir",
+		"ok": "Tamam",
+		"reset": "Sıfırla",
+		"save": "Kaydet",
+		"split": "Ayır",
+		"upload": "Yükle"
 	},
 	"uploadText": {
 		"default": "Yüklemek için tıklayın veya dosyaları sürükleyin",
@@ -102,7 +119,8 @@
 			"pageCountDescription": "Düzenlemeden önce tüm sayfaların istenen sırada olduğundan emin olun."
 		},
 		"imageToPdf": {
-			"title": "Resimden PDF"
+			"title": "Resimden PDF",
+			"description": "Görsel dosyalarınızı (JPG, JPEG, PNG) PDF formatına dönüştürün. Tek bir PDF oluşturmak için birden fazla görsel yükleyebilirsiniz."
 		}
 	}
 }

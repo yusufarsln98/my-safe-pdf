@@ -43,7 +43,12 @@
 	},
 	"imageToPdf": {
 		"title": "Image to PDF",
-		"description": "Convert your image files (JPG, JPEG, PNG) to PDF format. Upload multiple images to create a single PDF document."
+		"description": "Convert your image files (JPG, JPEG, PNG) to PDF format. Upload multiple images to create a single PDF document.",
+		"fitOptions": "Image Size Options",
+		"fitToPage": "Fit to Page",
+		"fitToPageDesc": "Resize images to fit A4 page size (recommended for consistent layout)",
+		"originalSize": "Original Size",
+		"originalSizeDesc": "Keep original image dimensions (may result in different page sizes)"
 	},
 	"messages": {
 		"merging": "Merging PDF files...",
@@ -60,21 +65,33 @@
 		"converting": "Converting images to PDF...",
 		"convertingProgress": "Converting images: {{progress}}%",
 		"convertSuccess": "Images converted to PDF successfully!",
-		"convertError": "Error converting images to PDF."
+		"convertError": "Error converting images to PDF.",
+		"onlyJpgPng": "Only JPG and PNG files are supported"
 	},
 	"buttons": {
-		"mergePdf": "Merge PDFs",
-		"splitPdf": "Split PDF",
-		"arrangePages": "Arrange Pages",
-		"convertToPdf": "Convert to PDF"
+		"back": "Back",
+		"cancel": "Cancel",
+		"close": "Close",
+		"confirm": "Confirm",
+		"continue": "Continue",
+		"convertToPdf": "Convert to PDF",
+		"download": "Download",
+		"downloadPdf": "Download PDF",
+		"merge": "Merge",
+		"mergePdfs": "Merge PDFs",
+		"ok": "OK",
+		"reset": "Reset",
+		"save": "Save",
+		"split": "Split",
+		"upload": "Upload"
 	},
 	"uploadText": {
 		"default": "Click or drag files to upload",
-		"singleFile": "You can select single file",
+		"singleFile": "You can select a single file",
 		"multipleFiles": "You can select multiple files"
 	},
-	"downloadMergedPDF": "Download Merged PDF",
 	"addMoreFiles": "Add more files",
+	"downloadMergedPDF": "Download Merged PDF",
 	"downloadZip": "Download ZIP with split PDFs",
 	"downloadSplitPDF": "Download split PDF",
 	"downloadArrangedPDF": "Download Arranged PDF",
@@ -85,7 +102,7 @@
 			"info": "Click 'Select PDF files' button again to select multiple PDF files. Hold 'Ctrl' key to select multiple files."
 		},
 		"split": {
-			"title": "Split",
+			"title": "Split PDF",
 			"splitMode": "Split mode:",
 			"customRanges": "Custom Ranges",
 			"fixedRanges": "Fixed Ranges"
@@ -102,7 +119,8 @@
 			"pageCountDescription": "Make sure all pages are in the desired order before arranging."
 		},
 		"imageToPdf": {
-			"title": "Image to PDF"
+			"title": "Image to PDF",
+			"description": "Convert your image files (JPG, JPEG, PNG) to PDF format. You can upload multiple images to create a single PDF."
 		}
 	}
 }
