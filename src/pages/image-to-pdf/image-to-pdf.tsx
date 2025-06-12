@@ -200,13 +200,13 @@ export const ImageToPdf: React.FC<ImageToPdfProps> = () => {
                 <Space direction="vertical">
                   <Radio value={ImageFitOption.FIT_TO_PAGE}>
                     <Space align="start">
-                      <span>{t('imageToPdf.fitToPage', 'Fit to Page')}</span>
+                      <span>{t('imageToPdf.fitToPage')}</span>
                     <Typography.Text type="secondary">{t('imageToPdf.fitToPageDesc')}</Typography.Text>
                     </Space>
                   </Radio>
                   <Radio value={ImageFitOption.ORIGINAL}>
                     <Space align="start">
-                      <span>{t('imageToPdf.originalSize', 'Original Size')}</span>
+                      <span>{t('imageToPdf.originalSize')}</span>
                     <Typography.Text type="secondary">{t('imageToPdf.originalSizeDesc')}</Typography.Text>
                     </Space>
                   </Radio>

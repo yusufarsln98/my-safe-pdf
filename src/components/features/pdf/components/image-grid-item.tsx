@@ -54,10 +54,6 @@ export const ImageGridItem = React.memo(
 
     if (!imageFile) return null
 
-    const handleLoadSuccess = () => {
-      // You could add additional logic here if needed
-    }
-
     return (
       <StyledGridItem>
         <ActionButtons className='action-buttons ignoreDrag'>
@@ -76,7 +72,6 @@ export const ImageGridItem = React.memo(
         <ThumbnailWrapper>
           <ImageThumbnail
             file={imageFile}
-            onLoadSuccess={handleLoadSuccess}
             errorText="Failed to load image"
           />
         </ThumbnailWrapper>
