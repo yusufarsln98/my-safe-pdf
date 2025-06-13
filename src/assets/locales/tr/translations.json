@@ -69,6 +69,7 @@
 		"onlyJpgPng": "Sadece JPG ve PNG dosyaları desteklenmektedir"
 	},
 	"buttons": {
+		"arrangePages": "PDF'i Düzenle",
 		"back": "Geri",
 		"cancel": "İptal",
 		"close": "Kapat",
@@ -76,13 +77,13 @@
 		"continue": "Devam Et",
 		"convertToPdf": "PDF'e Dönüştür",
 		"download": "İndir",
-		"downloadPdf": "PDF İndir",
+		"downloadPdf": "PDF'i İndir",
 		"merge": "Birleştir",
 		"mergePdfs": "PDF'leri Birleştir",
 		"ok": "Tamam",
 		"reset": "Sıfırla",
 		"save": "Kaydet",
-		"split": "Ayır",
+		"splitPdf": "PDF'i Ayır",
 		"upload": "Yükle"
 	},
 	"uploadText": {
@@ -112,11 +113,12 @@
 			"dragDropTitle": "Sürükle ve Bırak Talimatları",
 			"dragDropInstructions": [
 				"Sayfaları yeniden sıralamak için sürükleyip bırakın",
-				"Bir sayfayı silmek için sil simgesine tıklayın",
+				"Bir sayfayı kaldırmak için silme simgesine tıklayın",
 				"Değişiklikler \"Sayfaları Düzenle\" düğmesine tıkladığınızda uygulanacaktır"
 			],
 			"pageCountTitle": "Sayfa Sayısı",
-			"pageCountDescription": "Düzenlemeden önce tüm sayfaların istenen sırada olduğundan emin olun."
+			"pageCountDescription": "Düzenlemeden önce tüm sayfaların istenen sırada olduğundan emin olun.",
+			"description": "PDF sayfalarını düzenleyin veya birden fazla PDF dosyasını birleştirin. Dosyaları sürükleyip bırakarak sıralayabilirsiniz."
 		},
 		"imageToPdf": {
 			"title": "Resimden PDF",

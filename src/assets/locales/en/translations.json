@@ -69,6 +69,7 @@
 		"onlyJpgPng": "Only JPG and PNG files are supported"
 	},
 	"buttons": {
+		"arrangePages": "Arrange PDF",
 		"back": "Back",
 		"cancel": "Cancel",
 		"close": "Close",
@@ -82,7 +83,7 @@
 		"ok": "OK",
 		"reset": "Reset",
 		"save": "Save",
-		"split": "Split",
+		"splitPdf": "Split PDF",
 		"upload": "Upload"
 	},
 	"uploadText": {
@@ -116,7 +117,8 @@
 				"Changes will be applied when you click \"Arrange Pages\""
 			],
 			"pageCountTitle": "Page Count",
-			"pageCountDescription": "Make sure all pages are in the desired order before arranging."
+			"pageCountDescription": "Make sure all pages are in the desired order before arranging.",
+			"description": "Arrange PDF pages or combine multiple PDF files. You can reorder them by dragging and dropping."
 		},
 		"imageToPdf": {
 			"title": "Image to PDF",
