@@ -92,7 +92,7 @@ export const Merge: React.FC = () => {
 						style={{ width: '100%', marginTop: '24px' }}
 						onClick={handleMerge}
 					>
-						{t('buttons.mergePdf')}
+						{t('buttons.mergePdfs')}
 					</Button>
 				</>
 			)}

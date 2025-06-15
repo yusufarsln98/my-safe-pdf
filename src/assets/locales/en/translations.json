@@ -16,7 +16,7 @@
 				"title": "Page Reorder",
 				"description": "Rearrange PDF pages with simple drag-and-drop, delete pages, and rotate pages."
 			},
-			"imagesToPdf": {
+			"imageToPdf": {
 				"title": "Images to PDF",
 				"description": "Convert JPG and PNG files into a single PDF."
 			}
@@ -26,7 +26,8 @@
 		"home": "Home",
 		"merge": "Merge PDFs",
 		"split": "Split PDF",
-		"arrangement": "Arrange PDFs"
+		"arrangement": "Arrange PDFs",
+		"imageToPdf": "Image to PDF"
 	},
 	"merge": {
 		"title": "Merge PDFs",
@@ -40,6 +41,15 @@
 		"title": "Arrange PDF Pages",
 		"description": "Rearrange PDF pages with simple drag-and-drop, delete pages, and rotate pages."
 	},
+	"imageToPdf": {
+		"title": "Image to PDF",
+		"description": "Convert your image files (JPG, JPEG, PNG) to PDF format. Upload multiple images to create a single PDF document.",
+		"fitOptions": "Image Size Options",
+		"fitToPage": "Fit to Page",
+		"fitToPageDesc": "Resize images to fit A4 page size (recommended for consistent layout)",
+		"originalSize": "Original Size",
+		"originalSizeDesc": "Keep original image dimensions (may result in different page sizes)"
+	},
 	"messages": {
 		"merging": "Merging PDF files...",
 		"mergeSuccess": "PDF files merged successfully!",
@@ -51,30 +61,49 @@
 		"processingProgress": "Processing PDF pages... {{progress}}%",
 		"processSuccess": "PDF pages processed successfully!",
 		"processError": "Error processing PDF pages.",
-		"arrangeSuccess": "PDF pages arranged successfully!"
+		"arrangeSuccess": "PDF pages arranged successfully!",
+		"converting": "Converting images to PDF...",
+		"convertingProgress": "Converting images: {{progress}}%",
+		"convertSuccess": "Images converted to PDF successfully!",
+		"convertError": "Error converting images to PDF.",
+		"onlyJpgPng": "Only JPG and PNG files are supported"
 	},
 	"buttons": {
-		"mergePdf": "Merge PDFs",
+		"arrangePages": "Arrange PDF",
+		"back": "Back",
+		"cancel": "Cancel",
+		"close": "Close",
+		"confirm": "Confirm",
+		"continue": "Continue",
+		"convertToPdf": "Convert to PDF",
+		"download": "Download",
+		"downloadPdf": "Download PDF",
+		"merge": "Merge",
+		"mergePdfs": "Merge PDFs",
+		"ok": "OK",
+		"reset": "Reset",
+		"save": "Save",
 		"splitPdf": "Split PDF",
-		"arrangePages": "Arrange Pages"
+		"upload": "Upload"
 	},
 	"uploadText": {
 		"default": "Click or drag files to upload",
-		"singleFile": "You can select single file",
+		"singleFile": "You can select a single file",
 		"multipleFiles": "You can select multiple files"
 	},
-	"downloadMergedPDF": "Download Merged PDF",
 	"addMoreFiles": "Add more files",
+	"downloadMergedPDF": "Download Merged PDF",
 	"downloadZip": "Download ZIP with split PDFs",
 	"downloadSplitPDF": "Download split PDF",
 	"downloadArrangedPDF": "Download Arranged PDF",
+	"downloadConvertedPDF": "Download Converted PDF",
 	"sider": {
 		"merge": {
 			"title": "Merge PDFs",
 			"info": "Click 'Select PDF files' button again to select multiple PDF files. Hold 'Ctrl' key to select multiple files."
 		},
 		"split": {
-			"title": "Split",
+			"title": "Split PDF",
 			"splitMode": "Split mode:",
 			"customRanges": "Custom Ranges",
 			"fixedRanges": "Fixed Ranges"
@@ -88,7 +117,12 @@
 				"Changes will be applied when you click \"Arrange Pages\""
 			],
 			"pageCountTitle": "Page Count",
-			"pageCountDescription": "Make sure all pages are in the desired order before arranging."
+			"pageCountDescription": "Make sure all pages are in the desired order before arranging.",
+			"description": "Arrange PDF pages or combine multiple PDF files. You can reorder them by dragging and dropping."
+		},
+		"imageToPdf": {
+			"title": "Image to PDF",
+			"description": "Convert your image files (JPG, JPEG, PNG) to PDF format. You can upload multiple images to create a single PDF."
 		}
 	}
 }
