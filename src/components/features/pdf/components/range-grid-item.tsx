@@ -65,13 +65,13 @@ export const RangeGridItem = React.memo(
 			if (file.originFileObj) {
 				return file.originFileObj as File
 			}
-			// If we have a URL, use that
+			// If we have a URL, use that as string
 			if (file.url) {
-				return { url: file.url }
+				return file.url
 			}
 			// If we have a thumbUrl, use that as a fallback
 			if (file.thumbUrl) {
-				return { url: file.thumbUrl }
+				return file.thumbUrl
 			}
 			console.error('No valid file source found:', file)
 			return null

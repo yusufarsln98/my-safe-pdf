@@ -4,7 +4,7 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
 import styled from 'styled-components'
 
 // Set the worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`
 
 const LoadingText = styled.div`
 	color: ${(props) => props.theme.colorTextDescription};
@@ -26,7 +26,7 @@ const ThumbnailContainer = styled.div`
 	}
 `
 
-export type PDFSource = File | string | { url: string }
+export type PDFSource = File | string
 
 export interface PDFThumbnailProps {
 	file: PDFSource
@@ -52,20 +52,22 @@ const PDFThumbnailComponent: React.FC<PDFThumbnailProps> = ({
 		const loadFile = async () => {
 			try {
 				if (file instanceof File) {
+					// If PDF file is a File object, convert it to ArrayBuffer
 					const buffer = await file.arrayBuffer()
 					setFileData(buffer)
 				} else if (typeof file === 'string') {
+					// If PDF file is a URL string, use it directly
 					setFileData(file)
-				} else if (file && typeof file === 'object' && 'url' in file) {
-					setFileData(file.url)
 				} else {
-					throw new Error('Invalid file type')
+					throw new Error('Invalid file type: PDF source must be a File or URL string')
 				}
 			} catch (err) {
-				console.error('Error loading file:', err)
-				const error = err instanceof Error ? err : new Error('Unknown error')
+				console.error('Error loading PDF file:', err)
 				setError(errorText)
-				onLoadError?.(error)
+				if (onLoadError) {
+					const error = err instanceof Error ? err : new Error('Unknown PDF loading error')
+					onLoadError(error)
+				}
 			}
 		}
 
